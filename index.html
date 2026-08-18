@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor Prototype - Diagnostic Refresher</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Switcher -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">AI Tutor</span>
+                <span class="badge">Prototype</span>
+            </div>
+            <nav class="option-switcher">
+                <button class="option-btn active" data-option="a">
+                    <span class="option-label">Option A</span>
+                    <span class="option-desc">Reactive Quiz</span>
+                </button>
+                <button class="option-btn" data-option="b">
+                    <span class="option-label">Option B</span>
+                    <span class="option-desc">Proactive Observer</span>
+                </button>
+                <button class="option-btn" data-option="c">
+                    <span class="option-label">Option C</span>
+                    <span class="option-desc">Collaborative Dialogue</span>
+                </button>
+            </nav>
+            <button class="reset-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8a6 6 0 0 1 10.39-4.25M14 8a6 6 0 0 1-10.39 4.25M14 3v5h-5M2 13V8h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Reset
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Module 1</h3>
+                <span class="progress-badge">3/5 bài</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h4>Slides</h4>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">📄</span>
+                        <span>Giới thiệu Gradient Descent</span>
+                    </a>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-icon">📊</span>
+                        <span>Partial Derivatives</span>
+                        <span class="current-badge">●</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">🎯</span>
+                        <span>Chain Rule</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">🧮</span>
+                        <span>Optimization Algorithms</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">✅</span>
+                        <span>Practice Problems</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Slide Content (Common Context 70%) -->
+            <div class="slide-container">
+                <div class="slide-header">
+                    <h1>Machine Learning: Gradient Descent & Partial Derivatives</h1>
+                    <div class="slide-meta">
+                        <span class="slide-number">Slide 4/8</span>
+                        <span class="ai-status" id="aiStatus">
+                            <span class="status-dot"></span>
+                            AI Diagnostic: Ready
+                        </span>
+                    </div>
+                </div>
+
+                <div class="slide-content" id="slideContent">
+                    <section class="content-section">
+                        <h2>Đạo hàm riêng (Partial Derivatives)</h2>
+                        <p class="intro-text">Trong tối ưu hóa đa biến, chúng ta cần hiểu cách hàm số thay đổi theo từng biến độc lập.</p>
+                    </section>
+
+                    <section class="content-section formula-section" id="criticalSection">
+                        <h3>Công thức 3.2: Định nghĩa đạo hàm riêng</h3>
+                        <div class="formula-box">
+                            <div class="formula">
+                                ∂f/∂x = lim<sub>h→0</sub> [f(x+h, y) - f(x, y)] / h
+                            </div>
+                            <div class="formula">
+                                ∂f/∂y = lim<sub>h→0</sub> [f(x, y+h) - f(x, y)] / h
+                            </div>
+                        </div>
+                        <p class="explanation">Đạo hàm riêng đo lường tốc độ thay đổi của hàm số theo một biến cụ thể, trong khi giữ các biến khác cố định.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h3>Ví dụ thực hành</h3>
+                        <div class="example-box">
+                            <p><strong>Cho hàm:</strong> f(x, y) = x² + 3xy + y²</p>
+                            <p><strong>Tính:</strong></p>
+                            <ul>
+                                <li>∂f/∂x = 2x + 3y</li>
+                                <li>∂f/∂y = 3x + 2y</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Option A: Quiz Checkpoint (Critical Interaction 30%) -->
+                    <div class="checkpoint-quiz" id="checkpointQuiz" style="display: none;">
+                        <div class="quiz-card">
+                            <div class="quiz-header">
+                                <span class="quiz-icon">📝</span>
+                                <h4>Checkpoint 1: Kiểm tra hiểu biết</h4>
+                            </div>
+                            <div class="quiz-question">
+                                <p>Khi tính ∂f/∂x, chúng ta coi biến y như thế nào?</p>
+                                <div class="quiz-options">
+                                    <label class="quiz-option">
+                                        <input type="radio" name="q1" value="a">
+                                        <span>A. Y là biến phụ thuộc vào x</span>
+                                    </label>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="q1" value="b">
+                                        <span>B. Y là hằng số cố định</span>
+                                    </label>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="q1" value="c">
+                                        <span>C. Y thay đổi cùng với x</span>
+                                    </label>
+                                </div>
+                                <button class="submit-quiz-btn" onclick="checkQuizAnswer()">Kiểm tra đáp án</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Thumbnails -->
+                <div class="slide-thumbnails">
+                    <button class="thumb-nav thumb-prev">&lt;</button>
+                    <div class="thumbnails-track">
+                        <div class="thumbnail">
+                            <div class="thumb-img">1</div>
+                            <span>Intro</span>
+                        </div>
+                        <div class="thumbnail">
+                            <div class="thumb-img">2</div>
+                            <span>Derivatives</span>
+                        </div>
+                        <div class="thumbnail">
+                            <div class="thumb-img">3</div>
+                            <span>Functions</span>
+                        </div>
+                        <div class="thumbnail active">
+                            <div class="thumb-img">4</div>
+                            <span>Partial</span>
+                        </div>
+                        <div class="thumbnail">
+                            <div class="thumb-img">5</div>
+                            <span>Chain Rule</span>
+                        </div>
+                        <div class="thumbnail">
+                            <div class="thumb-img">6</div>
+                            <span>Gradient</span>
+                        </div>
+                    </div>
+                    <button class="thumb-nav thumb-next">&gt;</button>
+                </div>
+            </div>
+
+            <!-- AI Intervention Cards -->
+            <!-- Option A: Diagnostic Card -->
+            <div class="ai-card diagnostic-card" id="diagnosticCard" style="display: none;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">🎯</span>
+                        <h3>Chẩn đoán lỗ hổng kiến thức</h3>
+                    </div>
+                    <button class="card-close" onclick="dismissCard('diagnosticCard')">&times;</button>
+                </div>
+                <div class="card-body">
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong> Dựa vào lựa chọn chưa đúng của bạn tại Checkpoint 1
+                        <span class="confidence-badge correct">Chính xác 100%</span>
+                    </div>
+                    <p>Bạn có vẻ chưa nắm rõ khái niệm <strong>đạo hàm riêng</strong>. Khi tính đạo hàm riêng theo một biến, các biến khác được coi như hằng số.</p>
+                    <div class="refresher-preview">
+                        <h4>Bài ôn tập gợi ý (2-3 phút):</h4>
+                        <ul>
+                            <li>📖 Khái niệm cơ bản: Hằng số vs Biến số</li>
+                            <li>🎯 Quy tắc đạo hàm riêng</li>
+                            <li>✏️ 2 bài tập minh họa</li>
+                        </ul>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="openRefresher()">Mở bài ôn tập</button>
+                        <button class="btn btn-secondary" onclick="rediagnose()">Chọn khái niệm khác</button>
+                        <button class="btn btn-ghost" onclick="dismissCard('diagnosticCard')">Tôi tự học tiếp</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option B: Proactive Suggestion Toast -->
+            <div class="ai-toast" id="proactiveToast" style="display: none;">
+                <div class="toast-header">
+                    <span class="toast-icon">💡</span>
+                    <strong>Gợi ý hỗ trợ</strong>
+                    <button class="toast-close" onclick="dismissCard('proactiveToast')">&times;</button>
+                </div>
+                <div class="toast-body">
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong> Bạn đã đọc đi đọc lại đoạn công thức 3.2 trong 45s
+                        <span class="confidence-badge medium">Độ tin cậy: 78%</span>
+                    </div>
+                    <p>Có vẻ như bạn đang gặp khó khăn với phần này. Bạn có muốn xem bài ôn tập ngắn về <strong>đạo hàm riêng</strong>?</p>
+                    <div class="toast-actions">
+                        <button class="btn btn-sm btn-primary" onclick="openRefresher()">Mở bài ôn (2 phút)</button>
+                        <button class="btn btn-sm btn-ghost" onclick="dismissCard('proactiveToast')">Không, cảm ơn</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option C: Collaborative Dialogue -->
+            <div class="ai-dialogue" id="dialoguePanel" style="display: none;">
+                <div class="dialogue-header">
+                    <h3>
+                        <span class="dialogue-icon">💬</span>
+                        Hỗ trợ tương tác
+                    </h3>
+                    <button class="card-close" onclick="dismissCard('dialoguePanel')">&times;</button>
+                </div>
+                <div class="dialogue-body">
+                    <div class="concept-graph">
+                        <h4>Sơ đồ khái niệm (Concept Graph)</h4>
+                        <div class="graph-container">
+                            <div class="concept-node">Derivative</div>
+                            <div class="concept-arrow">→</div>
+                            <div class="concept-node active">Partial Derivative</div>
+                            <div class="concept-arrow">→</div>
+                            <div class="concept-node">Chain Rule</div>
+                            <div class="concept-arrow">→</div>
+                            <div class="concept-node">Gradient Descent</div>
+                        </div>
+                    </div>
+                    <div class="dialogue-messages">
+                        <div class="message ai-message">
+                            <strong>AI Tutor:</strong> Bạn đang gặp khó khăn với phần nào của đạo hàm riêng?
+                        </div>
+                        <div class="message user-message">
+                            <strong>Bạn:</strong> Em không hiểu tại sao phải coi y là hằng số
+                        </div>
+                        <div class="message ai-message">
+                            <strong>AI Tutor:</strong> Câu hỏi hay! Hãy thử suy nghĩ: Khi bạn muốn đo "tốc độ tăng trưởng theo chiều ngang" của một bề mặt 3D, bạn có cần quan tâm đến "chiều dọc" không?
+                        </div>
+                    </div>
+                    <div class="dialogue-input">
+                        <input type="text" placeholder="Nhập câu trả lời hoặc câu hỏi tiếp theo..." id="dialogueInput">
+                        <button class="btn btn-primary" onclick="sendDialogueMessage()">Gửi</button>
+                    </div>
+                    <div class="dialogue-actions">
+                        <button class="btn btn-secondary" onclick="openRefresher()">Xem bài ôn phù hợp</button>
+                        <button class="btn btn-ghost" onclick="editDescription()">Sửa mô tả vấn đề</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Footer -->
+            <div class="content-footer">
+                <button class="btn btn-secondary">← Bài trước</button>
+                <button class="btn btn-primary">Đi tới bài tiếp theo →</button>
+            </div>
+        </main>
+
+        <!-- Annotation Panel (For Facilitators) -->
+        <aside class="annotation-panel" id="annotationPanel">
+            <div class="panel-header">
+                <h3>📋 Prototype Annotation</h3>
+                <span class="panel-badge" id="currentOptionBadge">Option A</span>
+            </div>
+            <div class="panel-content">
+                <div class="annotation-section">
+                    <h4>🎯 Expect tester to:</h4>
+                    <ul id="expectList">
+                        <li>Đọc slide về Partial Derivatives</li>
+                        <li>Trả lời câu hỏi Checkpoint 1</li>
+                        <li>Chọn đáp án sai để kích hoạt AI diagnostic</li>
+                    </ul>
+                </div>
+                <div class="annotation-section">
+                    <h4>👀 Watch for:</h4>
+                    <ul id="watchList">
+                        <li>Phản ứng khi thấy diagnostic card</li>
+                        <li>Có đọc Evidence và Confidence không?</li>
+                        <li>Chọn hành động nào? (Mở bài ôn / Dismiss / Re-diagnose)</li>
+                    </ul>
+                </div>
+                <div class="annotation-section">
+                    <h4>🚫 Do NOT explain:</h4>
+                    <ul id="doNotList">
+                        <li>Không giải thích AI hoạt động như thế nào</li>
+                        <li>Không gợi ý tester nên làm gì</li>
+                        <li>Chỉ quan sát tự nhiên</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
