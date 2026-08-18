@@ -23,3 +23,27 @@
 > không nối được ý), họ không xác định được mình đang thiếu khái niệm nền nào, nên không biết phải tra
 > cứu hay hỏi cái gì. Kết quả là họ mất 20–40 phút tra cứu lan man và hiểu lệch, hoặc bỏ qua và học
 > tiếp trong trạng thái hổng — làm các bài phụ thuộc sau đó càng khó và tăng nguy cơ bỏ dở khoá học.**
+
+---
+
+## 3. Chặng 2 — Chọn ba Solution Options (GATE 2)
+
+### 3.1. Giữ nguyên cho cả A/B/C
+
+| Thành phần | Quyết định chung |
+|---|---|
+| Target user | Learner sử dụng slide để tự học trong khoá online, đang học dở một bài cụ thể |
+| Situation | Đọc lại nhiều lần vẫn không nối được ý (kèm trả lời sai quiz) |
+| Task | Xác định khái niệm nền đang thiếu và nhận refresher để tiếp tục |
+| Desired outcome | Nhận diện đúng gap, bù kiến thức trong vài phút (thay vì 20–40'), tiếp tục bài không hổng |
+| Content/data fixture | Bài giảng (text/video), câu quiz, concept graph các khái niệm nền + link refresher tương ứng |
+
+### 3.2. Khác nhau giữa A/B/C
+
+| Thành phần | Option A — **Reactive** | Option B — **Proactive** | Option C — **Collaborative** |
+|---|---|---|---|
+| **Solution mechanism** | Khi sai quiz, AI mở chuỗi 2–3 câu hỏi chẩn đoán, mỗi câu loại bỏ nghi ngờ (adaptive branching) cho tới khi khoanh vùng 1 khái niệm nền, rồi đẩy refresher + 1 câu kiểm tra lại | AI âm thầm theo dõi hành vi (thời gian ở slide, đọc lại, sai chuỗi quiz liên quan), dựng "giả thuyết gap" mà không hỏi; chỉ hiện card nhẹ "Có vẻ bạn vướng X" kèm nút mở refresher 1 chạm | Learner chủ động bấm "Em mắc chỗ này" và mô tả bằng lời (hoặc dán đoạn khó hiểu); AI đối thoại Socratic: hỏi 1–2 câu làm rõ → ánh xạ vào concept graph → refresher → xin xác nhận |
+| **User làm gì** | Trả lời quiz; khi sai, trả lời chuỗi câu hỏi chẩn đoán | Học như bình thường; khi card hiện, chạm mở hoặc bỏ qua | Khởi động, mô tả sự bối rối bằng lời tự nhiên, trả lời câu làm rõ, xác nhận chẩn đoán |
+| **AI làm gì** | Chọn câu hỏi tiếp theo, khoanh vùng gap, chọn refresher từ concept graph, kiểm tra lại | Mô hình hoá hiểu biết từ tín hiệu hành vi, xếp hạng khái niệm khả nghi, viết gợi ý + refresher, học từ việc bị bỏ qua | Parse mô tả, so khớp concept graph, hỏi làm rõ nếu mơ hồ, sinh refresher, điều chỉnh theo phản hồi |
+| **Trigger** | Sai câu quiz (ngưỡng fail) | Tín hiệu hành vi: đọc lại nhiều lần, thời gian tăng đột biến, sai chuỗi quiz liên quan | Learner khởi động (nút/chat) — hoặc gợi ý của B dẫn vào C |
+| **Trade-off chính** | Chẩn đoán chuẩn xác, nhưng gián đoạn — bị "hỏi bài" đúng lúc đang bực; tốn thời gian learner | Không gián đoạn, proactive; nhưng chỉ là xác suất — có thể sai/gây khó chịu; cold-start yếu | Chính xác + tôn trọng quyền learner nhất; nhưng đòi learner mô tả được vấn đề — đúng cái họ thiếu; friction cao với người nhút nhát |
