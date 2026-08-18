@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ba micro-prototype Human-AI Design cho trải nghiệm chẩn đoán kiến thức nền.">
+  <title>FocusLab - Human-AI Micro-Prototypes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#prototype">Bỏ qua điều hướng</a>
+  <header class="topbar">
+    <div class="brand" aria-label="FocusLab">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span><strong>FocusLab</strong><small>Human-AI Prototype Study</small></span>
+    </div>
+    <nav class="option-tabs" aria-label="Chọn phương án prototype">
+      <button class="option-tab is-active" type="button" data-option="A" aria-pressed="true"><span class="option-letter">A</span><span><strong>AI hỏi trước</strong><small>Checkpoint</small></span><span class="tab-complete" aria-hidden="true">✓</span></button>
+      <button class="option-tab" type="button" data-option="B" aria-pressed="false"><span class="option-letter">B</span><span><strong>AI chủ động</strong><small>Gợi ý theo tín hiệu</small></span><span class="tab-complete" aria-hidden="true">✓</span></button>
+      <button class="option-tab" type="button" data-option="C" aria-pressed="false"><span class="option-letter">C</span><span><strong>Bạn dẫn dắt</strong><small>Cùng khoanh vùng</small></span><span class="tab-complete" aria-hidden="true">✓</span></button>
+    </nav>
+    <button class="icon-command" id="reset-all" type="button" title="Đặt lại toàn bộ prototype"><span aria-hidden="true">↻</span><span>Đặt lại</span></button>
+  </header>
+
+  <div class="prototype-shell" id="prototype">
+    <section class="task-strip" aria-labelledby="task-title">
+      <div class="task-kicker">Bối cảnh chung cho A / B / C</div>
+      <div class="task-copy">
+        <div><h1 id="task-title">Bạn đang tự học và mắc ở công thức Gradient Descent</h1><p>Đã đọc lại ba lần nhưng chưa biết mình thiếu khái niệm nền nào.</p></div>
+        <div class="task-outcome"><span>Nhiệm vụ</span><strong>Tìm đúng kiến thức cần ôn và quyết định bước tiếp theo.</strong></div>
+      </div>
+    </section>
+
+    <main class="workspace">
+      <section class="lesson-panel" aria-labelledby="lesson-title">
+        <div class="lesson-toolbar">
+          <div class="breadcrumb"><span>Machine Learning Foundations</span><span aria-hidden="true">/</span><strong>Chương 3 · Tối ưu hóa</strong></div>
+          <div class="slide-nav" aria-label="Vị trí slide"><span id="slide-count">Slide 04 / 12</span></div>
+        </div>
+        <article class="lesson-content">
+          <div class="lesson-heading">
+            <div><span class="chapter-label">3.2 · Khái niệm trọng tâm</span><h2 id="lesson-title">Gradient Descent cập nhật tham số như thế nào?</h2></div>
+            <span class="reading-chip"><span aria-hidden="true"></span> Đang học</span>
+          </div>
+          <p class="lesson-lead">Mục tiêu là tìm bộ tham số <code>θ</code> làm hàm mất mát <code>J(θ)</code> nhỏ nhất. Ở mỗi bước, thuật toán dịch chuyển tham số theo hướng ngược với độ dốc.</p>
+          <div class="learning-visual" aria-label="Minh họa một bước Gradient Descent trên đường cong hàm mất mát">
+            <svg viewBox="0 0 620 190" role="img" aria-labelledby="curve-title curve-desc">
+              <title id="curve-title">Đường cong hàm mất mát</title><desc id="curve-desc">Tham số theta dịch chuyển từ điểm hiện tại xuống gần điểm có mất mát thấp nhất.</desc>
+              <line x1="48" y1="154" x2="582" y2="154" class="axis-line"/><line x1="48" y1="154" x2="48" y2="28" class="axis-line"/>
+              <path d="M70 42 C170 48 188 139 310 139 C432 139 456 52 556 42" class="loss-curve"/><circle cx="184" cy="108" r="7" class="point-current"/><circle cx="310" cy="139" r="7" class="point-target"/>
+              <path d="M198 111 C232 124 259 133 287 136" class="move-arrow"/><polygon points="286,130 299,137 285,143" class="move-head"/>
+              <text x="134" y="91" class="chart-label">θ hiện tại</text><text x="284" y="174" class="chart-label">J(θ) thấp</text><text x="16" y="34" class="axis-label">J(θ)</text><text x="574" y="174" class="axis-label">θ</text>
+            </svg>
+            <div class="visual-caption"><span class="legend-dot current"></span> Bước hiện tại <span class="legend-dot target"></span> Mục tiêu</div>
+          </div>
+          <div class="formula-block" id="formula-block">
+            <div class="formula-meta"><span>Quy tắc cập nhật</span><span>lặp với mỗi tham số θ<sub>j</sub></span></div>
+            <div class="formula" aria-label="theta j bằng theta j trừ alpha nhân đạo hàm riêng của J theo theta j"><span>θ<sub>j</sub></span><span>:=</span><span>θ<sub>j</sub></span><span>−</span><span class="formula-term alpha-term">α</span><span class="fraction formula-term partial-term"><span>∂</span><span>∂θ<sub>j</sub></span></span><span>J(θ)</span></div>
+            <div class="formula-key"><span><b>α</b> learning rate</span><span><b>∂J / ∂θ<sub>j</sub></b> mức thay đổi của J theo riêng θ<sub>j</sub></span></div>
+          </div>
+          <div class="lesson-note"><strong>Điểm dễ nhầm</strong><p>Ký hiệu <code>∂</code> được dùng khi hàm có nhiều biến. Ta chỉ thay đổi một biến và giữ các biến còn lại cố định.</p></div>
+        </article>
+        <footer class="lesson-footer"><span>Tiến độ bài học <strong>33%</strong></span><div class="progress-track" aria-label="Tiến độ bài học 33 phần trăm"><span></span></div><span>Đang ở nội dung cần test</span></footer>
+      </section>
+
+      <aside class="ai-panel" aria-labelledby="panel-title">
+        <div class="panel-topline"><div class="ai-identity"><span class="ai-mark" aria-hidden="true">✦</span><div><span>Trợ giảng AI</span><h2 id="panel-title">Option A · AI hỏi trước</h2></div></div><button class="square-button" id="reset-option" type="button" title="Làm lại option này" aria-label="Làm lại option này">↻</button></div>
+        <ol class="stage-track" aria-label="Tiến trình option"><li class="is-current" data-stage="0"><span>1</span> Bối cảnh</li><li data-stage="1"><span>2</span> Tương tác</li><li data-stage="2"><span>3</span> Quyết định</li></ol>
+        <div class="panel-content" id="panel-content"></div>
+      </aside>
+    </main>
+    <div class="study-progress" aria-live="polite"><span id="study-progress-text">Chưa hoàn thành option nào</span><div class="study-dots" aria-hidden="true"><span data-dot="A"></span><span data-dot="B"></span><span data-dot="C"></span></div></div>
+  </div>
+
+  <section class="facilitator-notes" id="facilitator-notes" aria-labelledby="facilitator-title">
+    <div class="facilitator-heading"><div><span class="facilitator-kicker">Ngoài prototype frame · Không cho tester xem</span><h2 id="facilitator-title">Prototype annotation</h2></div><span id="facilitator-option">OPTION A</span></div>
+    <div class="annotation-grid"><article><strong>We expect the tester to</strong><p id="annotation-expect"></p></article><article><strong>Watch for</strong><p id="annotation-watch"></p></article><article><strong>Do not explain</strong><p id="annotation-dont"></p></article></div>
+    <details><summary>Task test và observation focus</summary><div class="facilitator-protocol"><p><b>Relevant context:</b> “Gần đây bạn có từng đọc lại một công thức nhiều lần mà vẫn chưa biết mình đang thiếu kiến thức nền nào không?”</p><p><b>Outcome task:</b> “Trong tình huống này, hãy dùng từng phương án để tìm đúng kiến thức cần ôn và quyết định bước tiếp theo.”</p><p><b>Quan sát:</b> first action · hesitation · evidence read/ignored · correction/recovery · option được chọn và trade-off.</p></div></details>
+  </section>
+
+  <div class="modal-backdrop" id="refresher-modal" hidden>
+    <section class="refresher-modal" role="dialog" aria-modal="true" aria-labelledby="refresher-title">
+      <header class="modal-header"><div><span class="modal-kicker">Xem trước · Bài ôn 2 phút</span><h2 id="refresher-title">Đạo hàm riêng</h2></div><button class="square-button" id="close-modal" type="button" aria-label="Đóng bài ôn" title="Đóng">×</button></header>
+      <div class="modal-body" id="refresher-body"></div>
+      <footer class="modal-actions"><button class="secondary-button" id="back-to-decision" type="button">Quay lại quyết định</button><button class="primary-button" id="complete-refresher" type="button">Đã hiểu · Quay lại slide</button></footer>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

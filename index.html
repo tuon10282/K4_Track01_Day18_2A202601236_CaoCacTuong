@@ -1,327 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tutor Prototype - Diagnostic Refresher</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Track 1 Day 18 - Multiple Prototypes, Human-AI Design.">
+  <title>Track 1 · Day 18 — VLearn Codelabs</title>
+  <link rel="stylesheet" href="codelab.css">
 </head>
 <body>
-    <!-- Header Switcher -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">📚</span>
-                <span class="logo-text">AI Tutor</span>
-                <span class="badge">Prototype</span>
-            </div>
-            <nav class="option-switcher">
-                <button class="option-btn active" data-option="a">
-                    <span class="option-label">Option A</span>
-                    <span class="option-desc">Reactive Quiz</span>
-                </button>
-                <button class="option-btn" data-option="b">
-                    <span class="option-label">Option B</span>
-                    <span class="option-desc">Proactive Observer</span>
-                </button>
-                <button class="option-btn" data-option="c">
-                    <span class="option-label">Option C</span>
-                    <span class="option-desc">Collaborative Dialogue</span>
-                </button>
-            </nav>
-            <button class="reset-btn">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M2 8a6 6 0 0 1 10.39-4.25M14 8a6 6 0 0 1-10.39 4.25M14 3v5h-5M2 13V8h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Reset
-            </button>
-        </div>
-    </header>
+  <a class="skip-link" href="#lab-content">Đi tới nội dung</a>
 
-    <div class="main-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h3>Module 1</h3>
-                <span class="progress-badge">3/5 bài</span>
-            </div>
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <h4>Slides</h4>
-                    <a href="#" class="nav-item">
-                        <span class="nav-icon">📄</span>
-                        <span>Giới thiệu Gradient Descent</span>
-                    </a>
-                    <a href="#" class="nav-item active">
-                        <span class="nav-icon">📊</span>
-                        <span>Partial Derivatives</span>
-                        <span class="current-badge">●</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="nav-icon">🎯</span>
-                        <span>Chain Rule</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="nav-icon">🧮</span>
-                        <span>Optimization Algorithms</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="nav-icon">✅</span>
-                        <span>Practice Problems</span>
-                    </a>
-                </div>
-            </nav>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="content-area">
-            <!-- Slide Content (Common Context 70%) -->
-            <div class="slide-container">
-                <div class="slide-header">
-                    <h1>Machine Learning: Gradient Descent & Partial Derivatives</h1>
-                    <div class="slide-meta">
-                        <span class="slide-number">Slide 4/8</span>
-                        <span class="ai-status" id="aiStatus">
-                            <span class="status-dot"></span>
-                            AI Diagnostic: Ready
-                        </span>
-                    </div>
-                </div>
-
-                <div class="slide-content" id="slideContent">
-                    <section class="content-section">
-                        <h2>Đạo hàm riêng (Partial Derivatives)</h2>
-                        <p class="intro-text">Trong tối ưu hóa đa biến, chúng ta cần hiểu cách hàm số thay đổi theo từng biến độc lập.</p>
-                    </section>
-
-                    <section class="content-section formula-section" id="criticalSection">
-                        <h3>Công thức 3.2: Định nghĩa đạo hàm riêng</h3>
-                        <div class="formula-box">
-                            <div class="formula">
-                                ∂f/∂x = lim<sub>h→0</sub> [f(x+h, y) - f(x, y)] / h
-                            </div>
-                            <div class="formula">
-                                ∂f/∂y = lim<sub>h→0</sub> [f(x, y+h) - f(x, y)] / h
-                            </div>
-                        </div>
-                        <p class="explanation">Đạo hàm riêng đo lường tốc độ thay đổi của hàm số theo một biến cụ thể, trong khi giữ các biến khác cố định.</p>
-                    </section>
-
-                    <section class="content-section">
-                        <h3>Ví dụ thực hành</h3>
-                        <div class="example-box">
-                            <p><strong>Cho hàm:</strong> f(x, y) = x² + 3xy + y²</p>
-                            <p><strong>Tính:</strong></p>
-                            <ul>
-                                <li>∂f/∂x = 2x + 3y</li>
-                                <li>∂f/∂y = 3x + 2y</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <!-- Option A: Quiz Checkpoint (Critical Interaction 30%) -->
-                    <div class="checkpoint-quiz" id="checkpointQuiz" style="display: none;">
-                        <div class="quiz-card">
-                            <div class="quiz-header">
-                                <span class="quiz-icon">📝</span>
-                                <h4>Checkpoint 1: Kiểm tra hiểu biết</h4>
-                            </div>
-                            <div class="quiz-question">
-                                <p>Khi tính ∂f/∂x, chúng ta coi biến y như thế nào?</p>
-                                <div class="quiz-options">
-                                    <label class="quiz-option">
-                                        <input type="radio" name="q1" value="a">
-                                        <span>A. Y là biến phụ thuộc vào x</span>
-                                    </label>
-                                    <label class="quiz-option">
-                                        <input type="radio" name="q1" value="b">
-                                        <span>B. Y là hằng số cố định</span>
-                                    </label>
-                                    <label class="quiz-option">
-                                        <input type="radio" name="q1" value="c">
-                                        <span>C. Y thay đổi cùng với x</span>
-                                    </label>
-                                </div>
-                                <button class="submit-quiz-btn" onclick="checkQuizAnswer()">Kiểm tra đáp án</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide Thumbnails -->
-                <div class="slide-thumbnails">
-                    <button class="thumb-nav thumb-prev">&lt;</button>
-                    <div class="thumbnails-track">
-                        <div class="thumbnail">
-                            <div class="thumb-img">1</div>
-                            <span>Intro</span>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-img">2</div>
-                            <span>Derivatives</span>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-img">3</div>
-                            <span>Functions</span>
-                        </div>
-                        <div class="thumbnail active">
-                            <div class="thumb-img">4</div>
-                            <span>Partial</span>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-img">5</div>
-                            <span>Chain Rule</span>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-img">6</div>
-                            <span>Gradient</span>
-                        </div>
-                    </div>
-                    <button class="thumb-nav thumb-next">&gt;</button>
-                </div>
-            </div>
-
-            <!-- AI Intervention Cards -->
-            <!-- Option A: Diagnostic Card -->
-            <div class="ai-card diagnostic-card" id="diagnosticCard" style="display: none;">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon">🎯</span>
-                        <h3>Chẩn đoán lỗ hổng kiến thức</h3>
-                    </div>
-                    <button class="card-close" onclick="dismissCard('diagnosticCard')">&times;</button>
-                </div>
-                <div class="card-body">
-                    <div class="evidence-box">
-                        <strong>Evidence:</strong> Dựa vào lựa chọn chưa đúng của bạn tại Checkpoint 1
-                        <span class="confidence-badge correct">Chính xác 100%</span>
-                    </div>
-                    <p>Bạn có vẻ chưa nắm rõ khái niệm <strong>đạo hàm riêng</strong>. Khi tính đạo hàm riêng theo một biến, các biến khác được coi như hằng số.</p>
-                    <div class="refresher-preview">
-                        <h4>Bài ôn tập gợi ý (2-3 phút):</h4>
-                        <ul>
-                            <li>📖 Khái niệm cơ bản: Hằng số vs Biến số</li>
-                            <li>🎯 Quy tắc đạo hàm riêng</li>
-                            <li>✏️ 2 bài tập minh họa</li>
-                        </ul>
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn btn-primary" onclick="openRefresher()">Mở bài ôn tập</button>
-                        <button class="btn btn-secondary" onclick="rediagnose()">Chọn khái niệm khác</button>
-                        <button class="btn btn-ghost" onclick="dismissCard('diagnosticCard')">Tôi tự học tiếp</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Option B: Proactive Suggestion Toast -->
-            <div class="ai-toast" id="proactiveToast" style="display: none;">
-                <div class="toast-header">
-                    <span class="toast-icon">💡</span>
-                    <strong>Gợi ý hỗ trợ</strong>
-                    <button class="toast-close" onclick="dismissCard('proactiveToast')">&times;</button>
-                </div>
-                <div class="toast-body">
-                    <div class="evidence-box">
-                        <strong>Evidence:</strong> Bạn đã đọc đi đọc lại đoạn công thức 3.2 trong 45s
-                        <span class="confidence-badge medium">Độ tin cậy: 78%</span>
-                    </div>
-                    <p>Có vẻ như bạn đang gặp khó khăn với phần này. Bạn có muốn xem bài ôn tập ngắn về <strong>đạo hàm riêng</strong>?</p>
-                    <div class="toast-actions">
-                        <button class="btn btn-sm btn-primary" onclick="openRefresher()">Mở bài ôn (2 phút)</button>
-                        <button class="btn btn-sm btn-ghost" onclick="dismissCard('proactiveToast')">Không, cảm ơn</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Option C: Collaborative Dialogue -->
-            <div class="ai-dialogue" id="dialoguePanel" style="display: none;">
-                <div class="dialogue-header">
-                    <h3>
-                        <span class="dialogue-icon">💬</span>
-                        Hỗ trợ tương tác
-                    </h3>
-                    <button class="card-close" onclick="dismissCard('dialoguePanel')">&times;</button>
-                </div>
-                <div class="dialogue-body">
-                    <div class="concept-graph">
-                        <h4>Sơ đồ khái niệm (Concept Graph)</h4>
-                        <div class="graph-container">
-                            <div class="concept-node">Derivative</div>
-                            <div class="concept-arrow">→</div>
-                            <div class="concept-node active">Partial Derivative</div>
-                            <div class="concept-arrow">→</div>
-                            <div class="concept-node">Chain Rule</div>
-                            <div class="concept-arrow">→</div>
-                            <div class="concept-node">Gradient Descent</div>
-                        </div>
-                    </div>
-                    <div class="dialogue-messages">
-                        <div class="message ai-message">
-                            <strong>AI Tutor:</strong> Bạn đang gặp khó khăn với phần nào của đạo hàm riêng?
-                        </div>
-                        <div class="message user-message">
-                            <strong>Bạn:</strong> Em không hiểu tại sao phải coi y là hằng số
-                        </div>
-                        <div class="message ai-message">
-                            <strong>AI Tutor:</strong> Câu hỏi hay! Hãy thử suy nghĩ: Khi bạn muốn đo "tốc độ tăng trưởng theo chiều ngang" của một bề mặt 3D, bạn có cần quan tâm đến "chiều dọc" không?
-                        </div>
-                    </div>
-                    <div class="dialogue-input">
-                        <input type="text" placeholder="Nhập câu trả lời hoặc câu hỏi tiếp theo..." id="dialogueInput">
-                        <button class="btn btn-primary" onclick="sendDialogueMessage()">Gửi</button>
-                    </div>
-                    <div class="dialogue-actions">
-                        <button class="btn btn-secondary" onclick="openRefresher()">Xem bài ôn phù hợp</button>
-                        <button class="btn btn-ghost" onclick="editDescription()">Sửa mô tả vấn đề</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Navigation Footer -->
-            <div class="content-footer">
-                <button class="btn btn-secondary">← Bài trước</button>
-                <button class="btn btn-primary">Đi tới bài tiếp theo →</button>
-            </div>
-        </main>
-
-        <!-- Annotation Panel (For Facilitators) -->
-        <aside class="annotation-panel" id="annotationPanel">
-            <div class="panel-header">
-                <h3>📋 Prototype Annotation</h3>
-                <span class="panel-badge" id="currentOptionBadge">Option A</span>
-            </div>
-            <div class="panel-content">
-                <div class="annotation-section">
-                    <h4>🎯 Expect tester to:</h4>
-                    <ul id="expectList">
-                        <li>Đọc slide về Partial Derivatives</li>
-                        <li>Trả lời câu hỏi Checkpoint 1</li>
-                        <li>Chọn đáp án sai để kích hoạt AI diagnostic</li>
-                    </ul>
-                </div>
-                <div class="annotation-section">
-                    <h4>👀 Watch for:</h4>
-                    <ul id="watchList">
-                        <li>Phản ứng khi thấy diagnostic card</li>
-                        <li>Có đọc Evidence và Confidence không?</li>
-                        <li>Chọn hành động nào? (Mở bài ôn / Dismiss / Re-diagnose)</li>
-                    </ul>
-                </div>
-                <div class="annotation-section">
-                    <h4>🚫 Do NOT explain:</h4>
-                    <ul id="doNotList">
-                        <li>Không giải thích AI hoạt động như thế nào</li>
-                        <li>Không gợi ý tester nên làm gì</li>
-                        <li>Chỉ quan sát tự nhiên</li>
-                    </ul>
-                </div>
-            </div>
-        </aside>
+  <header class="vl-header">
+    <a class="vl-brand" href="#stage-1" aria-label="VLearn Codelabs">
+      <span class="vl-logo" aria-hidden="true">V</span>
+      <span><strong>VLearn</strong><small>Codelabs</small></span>
+    </a>
+    <div class="lab-titlebar">
+      <strong>Track 1 · Day 18</strong>
+      <span>Multiple Prototypes — Human–AI Design</span>
     </div>
+    <div class="header-tools">
+      <button type="button" class="tool-button" id="focus-toggle" aria-pressed="false"><span aria-hidden="true">◉</span> Tập trung</button>
+      <button type="button" class="tool-button" id="notes-toggle"><span aria-hidden="true">▤</span> Ghi chú <b id="note-count">0</b></button>
+      <button type="button" class="tool-button" id="support-open"><span aria-hidden="true">?</span> Hỗ trợ</button>
+      <label class="language-control"><span class="sr-only">Ngôn ngữ</span><select id="language-select" aria-label="Ngôn ngữ"><option>Tiếng Việt</option><option disabled>English</option></select></label>
+      <span class="profile-badge" title="Hồ sơ 2A202601236">2</span>
+    </div>
+  </header>
 
-    <script src="app.js"></script>
+  <div class="mobile-stage-control">
+    <label for="mobile-stage">Nội dung</label>
+    <select id="mobile-stage">
+      <option value="1">1. Tổng hợp evidence</option>
+      <option value="2">2. Chọn ba Solution Options</option>
+      <option value="3">3. Human–AI Design pass</option>
+      <option value="4">4. Build ba micro-prototype</option>
+      <option value="5">5. Chuẩn bị test</option>
+      <option value="6">6. Test với ba người</option>
+    </select>
+  </div>
+
+  <div class="lab-layout">
+    <aside class="stage-sidebar" aria-label="Các chặng của bài lab">
+      <div class="course-meta"><span>Tiến độ bài lab</span><strong id="progress-label">1 / 6</strong></div>
+      <div class="course-progress" aria-hidden="true"><span id="progress-fill"></span></div>
+      <nav class="stage-nav">
+        <button type="button" class="stage-link is-active" data-step="1"><span>1</span><span><strong>Tổng hợp evidence</strong><small>15 phút · GATE 1</small></span></button>
+        <button type="button" class="stage-link" data-step="2"><span>2</span><span><strong>Ba Solution Options</strong><small>20 phút · GATE 2</small></span></button>
+        <button type="button" class="stage-link" data-step="3"><span>3</span><span><strong>Human–AI Design</strong><small>30 phút · GATE 3</small></span></button>
+        <button type="button" class="stage-link" data-step="4"><span>4</span><span><strong>Ba micro-prototype</strong><small>80 phút · GATE 4</small></span></button>
+        <button type="button" class="stage-link" data-step="5"><span>5</span><span><strong>Chuẩn bị test</strong><small>15 phút</small></span></button>
+        <button type="button" class="stage-link" data-step="6"><span>6</span><span><strong>Test với ba người</strong><small>20 phút · GATE 5</small></span></button>
+      </nav>
+      <div class="student-meta"><span>Nhóm Hihi</span><small>Cao Các Tường · Đinh Lê Quỳnh Phương</small></div>
+    </aside>
+
+    <main class="lab-main" id="lab-content">
+      <article class="lab-stage is-visible" data-stage="1" aria-labelledby="stage-1-title">
+        <header class="stage-header">
+          <div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-1-title">1. Chặng 1 — Tổng hợp evidence</h1></div>
+          <span class="time-badge">15 phút</span>
+        </header>
+        <p class="stage-lead">Ba observation từ Day 17 được giữ tách biệt với phần diễn giải. Chúng là evidence đầu vào, chưa phải kết luận đã được chứng minh.</p>
+
+        <h2>Evidence huddle</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Practice Note</th><th>User đã thực sự làm/nói gì?</th><th>Điều nhóm đang diễn giải</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1 · Đọc lại</strong></td><td>Learner quay lại cùng một đoạn công thức nhiều lần nhưng vẫn nói chưa nối được ý.</td><td>Có thể learner thiếu một khái niệm nền, không chỉ thiếu thêm ví dụ.</td></tr>
+              <tr><td><strong>2 · Tra cứu</strong></td><td>Learner không gọi tên được phần chưa hiểu nên thử nhiều từ khóa và mất 20–40 phút.</td><td>Rào cản có thể nằm ở việc xác định đúng “gap” trước khi tìm câu trả lời.</td></tr>
+              <tr><td><strong>3 · Workaround</strong></td><td>Learner bỏ qua phần khó để học tiếp, sau đó mắc ở nội dung phụ thuộc.</td><td>Một refresher ngắn tại đúng thời điểm có thể giảm việc học tiếp với kiến thức hổng.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="source-warning"><strong>Ranh giới evidence</strong><p>Nếu nhóm có quote/ảnh Practice Notes Day 17 chi tiết hơn, thay ba mô tả trên bằng nguyên văn. Không biến Evidence Pack thành finding thật.</p></div>
+
+        <h2>Hypothesis Problem nhóm tiếp tục</h2>
+        <blockquote>Khi <strong>learner tự học và đọc lại một slide nhiều lần vẫn chưa hiểu</strong>, họ gặp khó khăn trong việc <strong>xác định khái niệm nền đang thiếu</strong> vì <strong>không gọi tên được chỗ hổng để tra cứu hoặc đặt câu hỏi</strong>, dẫn đến <strong>mất 20–40 phút tìm lan man, hiểu lệch hoặc học tiếp với kiến thức hổng</strong>.</blockquote>
+        <div class="two-column">
+          <section><h3>Evidence ban đầu hỗ trợ</h3><p>Đọc lại nhiều lần; không biết từ khóa để tra; workaround là bỏ qua và học tiếp.</p></section>
+          <section><h3>Điều vẫn chưa được chứng minh</h3><p>Learner muốn AI chủ động tới mức nào và evidence nào đủ để họ tin một bài ôn được đề xuất.</p></section>
+        </div>
+        <div class="gate gate-pass"><span aria-hidden="true">✓</span><div><strong>GATE 1 — Evidence continuity</strong><p>Có user, situation, job, barrier, consequence, observation Day 17 và still unproven.</p></div></div>
+      </article>
+
+      <article class="lab-stage" data-stage="2" aria-labelledby="stage-2-title" hidden>
+        <header class="stage-header"><div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-2-title">2. Chặng 2 — Chọn ba Solution Options</h1></div><span class="time-badge">20 phút</span></header>
+        <p class="stage-lead">A/B/C cùng giải một Hypothesis Problem. Chúng khác nhau ở cơ chế và cách phân chia công việc giữa learner với AI, không chỉ khác màu hoặc wording.</p>
+        <h2>Những thứ giữ nguyên</h2>
+        <div class="table-scroll"><table class="compact-table"><thead><tr><th>Thành phần</th><th>Quyết định chung cho A/B/C</th></tr></thead><tbody>
+          <tr><td>Target user</td><td>Learner tự học bằng slide trong khóa online.</td></tr><tr><td>Situation</td><td>Đọc lại công thức Gradient Descent ba lần nhưng chưa biết thiếu kiến thức nền nào.</td></tr><tr><td>Task</td><td>Tìm đúng kiến thức cần ôn và quyết định bước tiếp theo.</td></tr><tr><td>Desired outcome</td><td>Xác định gap, xem bài ôn ngắn và quay lại đúng Slide 04.</td></tr><tr><td>Content/data fixture</td><td>Cùng slide, loss curve, công thức, concept map và thư viện refresher.</td></tr>
+        </tbody></table></div>
+        <h2>Ba cách giải</h2>
+        <div class="table-scroll"><table><thead><tr><th>Thành phần</th><th>Option A · AI hỏi trước</th><th>Option B · AI chủ động</th><th>Option C · Bạn dẫn dắt</th></tr></thead><tbody>
+          <tr><td>Solution mechanism</td><td>Checkpoint tự báo cáo có cấu trúc.</td><td>Suy luận từ tín hiệu đọc trong phiên.</td><td>User khoanh vùng công thức + trả lời làm rõ.</td></tr>
+          <tr><td>User làm gì?</td><td>Chọn điều gần nhất với chỗ chưa rõ.</td><td>Đọc evidence, duyệt, sửa, ẩn hoặc tắt quan sát.</td><td>Chọn một phần công thức và xác nhận cách hiểu.</td></tr>
+          <tr><td>AI làm gì?</td><td>Hỏi rồi ánh xạ câu trả lời vào concept map.</td><td>Đưa giả thuyết 68% và chờ user quyết định.</td><td>Chỉ phân tích phạm vi user chọn rồi tóm tắt.</td></tr>
+          <tr><td>Trigger</td><td>User bắt đầu checkpoint.</td><td>Dừng 52 giây + quay lại ký hiệu ba lần.</td><td>User chọn “phần chưa hiểu”.</td></tr>
+          <tr><td>Trade-off</td><td>Evidence trực tiếp nhưng gây gián đoạn.</td><td>Ít effort nhưng có rủi ro đoán sai/privacy.</td><td>Nhiều control nhưng đòi user biết bắt đầu từ đâu.</td></tr>
+        </tbody></table></div>
+        <div class="agency-spectrum" aria-label="Phổ phân chia quyền chủ động"><span><b>C</b>User initiates</span><i></i><span><b>A</b>AI asks</span><i></i><span><b>B</b>AI initiates</span></div>
+        <h2>Distance check</h2>
+        <ol class="distance-list"><li><b>A khác B</b> vì A lấy evidence từ câu trả lời trực tiếp; B suy luận từ hành vi đọc.</li><li><b>B khác C</b> vì B chủ động khởi tạo; C chỉ bắt đầu khi user chọn phạm vi.</li><li><b>A khác C</b> vì A định hình câu hỏi; C để learner chọn phần công thức trước.</li></ol>
+        <div class="gate gate-pass"><span aria-hidden="true">✓</span><div><strong>GATE 2 — Meaningful options</strong><p>Cùng task và outcome; khác nhau có ý nghĩa ở mechanism và agency.</p></div></div>
+      </article>
+
+      <article class="lab-stage" data-stage="3" aria-labelledby="stage-3-title" hidden>
+        <header class="stage-header"><div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-3-title">3. Chặng 3 — Human–AI Design pass</h1></div><span class="time-badge">30 phút</span></header>
+        <p class="stage-lead">Chỉ review critical interaction cần test. Mỗi option làm rõ expectation, role, evidence/uncertainty và control/recovery ngay tại thời điểm quyết định.</p>
+        <div class="decision-principles">
+          <section><span>01</span><h3>Expectation</h3><p>AI nói trước sẽ làm gì, dùng dữ liệu nào và giới hạn ở concept map Chương 3.</p></section>
+          <section><span>02</span><h3>Role & Agency</h3><p>A hỏi trước; B chỉ gợi ý; C chờ user khởi tạo và xác nhận.</p></section>
+          <section><span>03</span><h3>Evidence & Uncertainty</h3><p>Evidence trực tiếp, tín hiệu 68%, hoặc phần user chọn + câu trả lời làm rõ.</p></section>
+          <section><span>04</span><h3>Control & Recovery</h3><p>Chọn lại, sửa gợi ý, tắt quan sát, bỏ qua, đóng preview và reset.</p></section>
+        </div>
+        <h2>Human–AI Decision Table</h2>
+        <div class="table-scroll"><table><thead><tr><th>Human–AI decision</th><th>Option A</th><th>Option B</th><th>Option C</th></tr></thead><tbody>
+          <tr><td>User làm gì? AI làm gì?</td><td>User tự báo cáo; AI hỏi và đề xuất.</td><td>AI quan sát trong phiên; user duyệt hoặc sửa.</td><td>User chọn phạm vi; AI hỏi một câu; user xác nhận.</td></tr>
+          <tr><td>Act / Ask / Don't Act?</td><td><b>Ask</b> trước khi đề xuất.</td><td><b>Suggest & wait</b>, không tự mở.</td><td><b>Don't act → Ask → Wait.</b></td></tr>
+          <tr><td>Capability/limit</td><td>Chỉ dùng concept map, không đoán từ hành vi.</td><td>Không ghi âm/dùng dữ liệu ngoài màn hình.</td><td>Chỉ phân tích phạm vi user chọn.</td></tr>
+          <tr><td>Evidence/uncertainty</td><td>Trích lựa chọn; mức chắc chắn cao.</td><td>52 giây, ba lần quay lại; 68%.</td><td>Trích lựa chọn + câu trả lời; chờ xác nhận.</td></tr>
+          <tr><td>Control/recovery</td><td>Chọn lại, bỏ qua, preview, reset.</td><td>Sửa, ẩn/khôi phục, tắt quan sát, reset.</td><td>Sửa phạm vi, trả lời lại, bỏ qua, reset.</td></tr>
+        </tbody></table></div>
+        <div class="info-callout"><strong>Feedback & data check</strong><p>Option B chỉ quan sát trong phiên hiện tại. Tắt toggle dừng dùng tín hiệu đọc; “Không đúng” chỉ sửa đề xuất hiện tại, không được tuyên bố là huấn luyện cho lần sau.</p></div>
+        <div class="gate gate-pass"><span aria-hidden="true">✓</span><div><strong>GATE 3 — Human control</strong><p>Agency phù hợp hậu quả khi sai; mỗi option có đường kiểm soát và phục hồi.</p></div></div>
+      </article>
+
+      <article class="lab-stage stage-prototype" data-stage="4" aria-labelledby="stage-4-title" hidden>
+        <header class="stage-header"><div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-4-title">4. Chặng 4 — Build ba micro-prototype</h1></div><span class="time-badge">80 phút</span></header>
+        <p class="stage-lead">Ba option dùng chung khoảng 70% context, task, content fixture và visual style. Chỉ critical interaction thay đổi rõ.</p>
+        <div class="flow-diagram" aria-label="Common context tới critical interaction tới result"><span>COMMON CONTEXT<small>Slide 04 · cùng task</small></span><b aria-hidden="true">→</b><span>CRITICAL INTERACTION<small>A / B / C khác cơ chế</small></span><b aria-hidden="true">→</b><span>USER DECISION<small>Preview · sửa · bỏ qua</small></span></div>
+        <div class="prototype-actions"><a class="primary-link" href="prototype.html" target="_blank" rel="noopener">Mở prototype cho tester ↗</a><a class="secondary-link" href="prototype.html?facilitator=1" target="_blank" rel="noopener">Mở annotation cho facilitator ↗</a></div>
+        <div class="prototype-frame"><iframe src="prototype.html" title="Prototype A/B/C cho tester" loading="lazy"></iframe></div>
+        <h2>Prototype annotation — ngoài frame tester</h2>
+        <div class="annotation-list">
+          <section><b>OPTION A</b><p><strong>Expect:</strong> bắt đầu checkpoint, chọn cách hiểu, cân nhắc result.</p><p><strong>Watch:</strong> evidence có được đọc và learner có chọn lại không.</p><p><strong>Do not explain:</strong> lựa chọn nào dẫn tới concept nào.</p></section>
+          <section><b>OPTION B</b><p><strong>Expect:</strong> xem proactive card và quyết định mở/sửa/ẩn.</p><p><strong>Watch:</strong> 68% và quyền tắt quan sát có được chú ý không.</p><p><strong>Do not explain:</strong> vì sao 68% là chưa chắc.</p></section>
+          <section><b>OPTION C</b><p><strong>Expect:</strong> chọn vùng công thức và trả lời làm rõ.</p><p><strong>Watch:</strong> learner bắt đầu từ đâu và có sửa phạm vi không.</p><p><strong>Do not explain:</strong> không chỉ phần đạo hàm riêng.</p></section>
+        </div>
+        <div class="gate gate-pass"><span aria-hidden="true">✓</span><div><strong>GATE 4 — Test-ready</strong><p>Tester tự thao tác A/B/C, cùng task, có evidence, recovery và reset về common context.</p></div></div>
+      </article>
+
+      <article class="lab-stage" data-stage="5" aria-labelledby="stage-5-title" hidden>
+        <header class="stage-header"><div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-5-title">5. Chặng 5 — Chuẩn bị test</h1></div><span class="time-badge">15 phút</span></header>
+        <h2>Chốt context và task</h2>
+        <div class="script-block"><span>Relevant context · tối đa 2 phút</span><blockquote>“Gần đây bạn có từng đọc lại một công thức nhiều lần mà vẫn chưa biết mình đang thiếu kiến thức nền nào không?”</blockquote></div>
+        <div class="script-block"><span>Outcome task · dùng nguyên văn cho A/B/C</span><blockquote>“Trong tình huống này, hãy dùng từng phương án để tìm đúng kiến thức cần ôn và quyết định bước tiếp theo.”</blockquote></div>
+        <h2>Observation focus</h2>
+        <div class="observation-grid"><span>First action</span><span>Hesitation</span><span>Evidence read / ignored</span><span>Correction / recovery</span><span>Option + trade-off</span></div>
+        <h2>Luật facilitation</h2>
+        <ol class="rule-list"><li>Tester tự điều khiển prototype.</li><li>Dùng cùng một task cho A/B/C.</li><li>Không narrate hoặc giải thích icon.</li><li>Không lấp im lặng.</li><li>Không hỏi “Bạn có thích không?”.</li><li>Khi tester hỏi cách hoạt động, hỏi lại: “Theo bạn, nó nên hoạt động như thế nào?”</li></ol>
+        <div class="rescue-lines"><strong>Ba câu cứu hộ</strong><p>“Bạn cứ nói to suy nghĩ của mình nhé.”</p><p>“Bạn sẽ làm gì tiếp theo?”</p><p>“Theo bạn, nó nên hoạt động như thế nào?”</p></div>
+        <div class="gate gate-ready"><span aria-hidden="true">→</span><div><strong>Sẵn sàng chạy test</strong><p>Context, outcome task, observation focus và facilitation rules đã được chuẩn hóa.</p></div></div>
+      </article>
+
+      <article class="lab-stage" data-stage="6" aria-labelledby="stage-6-title" hidden>
+        <header class="stage-header"><div><span class="track-label">Track 1 · Day 18</span><h1 id="stage-6-title">6. Chặng 6 — Test với ba người</h1></div><span class="time-badge">20 phút / tester</span></header>
+        <p class="stage-lead">Không điền giả observation. Mỗi Feedback Note phải đến từ một tester khác nhóm; dữ liệu nhập ở đây được lưu cục bộ trong trình duyệt.</p>
+        <h2>Timeline</h2>
+        <div class="timeline"><span><b>0–2'</b>Comfort + context</span><span><b>2–14'</b>A / B / C</span><span><b>14–18'</b>Compare</span><span><b>18–20'</b>Feedback Note</span></div>
+        <div class="feedback-tabs" role="tablist" aria-label="Ba Feedback Notes"><button type="button" class="is-active" data-feedback-tab="1" role="tab">Feedback 1</button><button type="button" data-feedback-tab="2" role="tab">Feedback 2</button><button type="button" data-feedback-tab="3" role="tab">Feedback 3</button><button type="button" data-feedback-tab="synthesis" role="tab">Group synthesis</button></div>
+        <section class="feedback-panel is-visible" data-feedback-panel="1"></section>
+        <section class="feedback-panel" data-feedback-panel="2" hidden></section>
+        <section class="feedback-panel" data-feedback-panel="3" hidden></section>
+        <section class="feedback-panel" data-feedback-panel="synthesis" hidden>
+          <div class="form-heading"><div><span>GROUP FEEDBACK SYNTHESIS</span><h2>Pattern, Next Change và Still Unproven</h2></div><span class="draft-badge">Chưa chốt</span></div>
+          <div class="table-scroll synthesis-table"><table><thead><tr><th>Nội dung</th><th>Feedback 1</th><th>Feedback 2</th><th>Feedback 3</th><th>Pattern / khác biệt</th></tr></thead><tbody>
+            <tr><td>First action</td><td><span data-synthesis-source="f1-first">—</span></td><td><span data-synthesis-source="f2-first">—</span></td><td><span data-synthesis-source="f3-first">—</span></td><td><textarea data-persist="matrix-first" rows="2"></textarea></td></tr>
+            <tr><td>Breakdown chính</td><td><span data-synthesis-source="f1-breakdown">—</span></td><td><span data-synthesis-source="f2-breakdown">—</span></td><td><span data-synthesis-source="f3-breakdown">—</span></td><td><textarea data-persist="matrix-breakdown" rows="2"></textarea></td></tr>
+            <tr><td>Cách lấy lại control</td><td><span data-synthesis-source="f1-control">—</span></td><td><span data-synthesis-source="f2-control">—</span></td><td><span data-synthesis-source="f3-control">—</span></td><td><textarea data-persist="matrix-control" rows="2"></textarea></td></tr>
+            <tr><td>Option được chọn</td><td><span data-synthesis-source="f1-option">—</span></td><td><span data-synthesis-source="f2-option">—</span></td><td><span data-synthesis-source="f3-option">—</span></td><td><textarea data-persist="matrix-option" rows="2"></textarea></td></tr>
+            <tr><td>Trade-off</td><td><span data-synthesis-source="f1-tradeoff">—</span></td><td><span data-synthesis-source="f2-tradeoff">—</span></td><td><span data-synthesis-source="f3-tradeoff">—</span></td><td><textarea data-persist="matrix-tradeoff" rows="2"></textarea></td></tr>
+          </tbody></table></div>
+          <div class="field-grid two"><label>Pattern hoặc khác biệt<textarea data-persist="synthesis-pattern" rows="4" placeholder="Điểm lặp lại hoặc khác biệt giữa ba tester..."></textarea></label><label>Một Next Change nhóm chốt<textarea data-persist="synthesis-change" rows="4" placeholder="Giữ, sửa, kết hợp hay bỏ option nào..."></textarea></label></div>
+          <label>Evidence nào dẫn tới quyết định?<textarea data-persist="synthesis-evidence" rows="3"></textarea></label>
+          <label>Still Unproven sau ba feedback<textarea data-persist="synthesis-unproven" rows="3"></textarea></label>
+        </section>
+        <div class="gate gate-pending" id="gate-5-status"><span aria-hidden="true">!</span><div><strong>GATE 5 — Learning, not praise</strong><p>Cần đủ ba Feedback Notes, một pattern/khác biệt, một Next Change và một Still Unproven. “Ba tester thích B” chưa đủ.</p></div></div>
+      </article>
+
+      <footer class="lab-footer">
+        <button type="button" id="previous-step" class="nav-button secondary" disabled><span aria-hidden="true">←</span> Quay lại</button>
+        <span id="step-indicator">Chặng 1 / 6</span>
+        <button type="button" id="next-step" class="nav-button primary">Tiếp <span aria-hidden="true">→</span></button>
+      </footer>
+    </main>
+  </div>
+
+  <aside class="notes-drawer" id="notes-drawer" aria-labelledby="notes-title" hidden>
+    <header><div><span>Ghi chú cá nhân</span><h2 id="notes-title">Day 18</h2></div><button type="button" id="notes-close" aria-label="Đóng ghi chú">×</button></header>
+    <textarea id="personal-notes" data-persist="personal-notes" placeholder="Ghi observation, câu hỏi hoặc điều cần kiểm tra..."></textarea>
+    <p>Ghi chú được lưu trên trình duyệt này.</p>
+  </aside>
+
+  <dialog id="support-dialog" class="support-dialog">
+    <header><div><span>Hỗ trợ</span><h2>Facilitation quick reference</h2></div><button type="button" id="support-close" aria-label="Đóng hỗ trợ">×</button></header>
+    <p>Không hướng dẫn tester thao tác. Khi họ hỏi, dùng một trong ba câu cứu hộ:</p>
+    <ul><li>“Bạn cứ nói to suy nghĩ của mình nhé.”</li><li>“Bạn sẽ làm gì tiếp theo?”</li><li>“Theo bạn, nó nên hoạt động như thế nào?”</li></ul>
+    <a href="prototype.html?facilitator=1" target="_blank" rel="noopener">Mở facilitator annotation ↗</a>
+  </dialog>
+
+  <div class="save-status" id="save-status" role="status" aria-live="polite" hidden>Đã lưu</div>
+  <script src="codelab.js"></script>
 </body>
 </html>
