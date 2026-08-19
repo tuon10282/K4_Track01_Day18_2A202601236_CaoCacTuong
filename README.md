@@ -7,9 +7,9 @@ Micro-prototype cho **Case A — AI Tutor: Diagnostic Refresher**.
 | Nhóm | Hihi |
 | Sinh viên | Cao Các Tường — 2A202601236 |
 | Sinh viên | Đinh Lê Quỳnh Phương - 2A202601865 |
-| Sinh viên | Lăng Thị Phương Huế - 2A202601915 |
-| Sinh viên | Kim Mạnh Hưng - 2A202601679 |
-| Sinh viên | Nguyễn Quang Huy - 2A202601873 |
+| Test case 1 | Lăng Thị Phương Huế - 2A202601915 |
+| Test case 2 | Kim Mạnh Hưng - 2A202601679 |
+| Test case 3 | Nguyễn Quang Huy - 2A202601873 |
 
 ## Chạy prototype
 
