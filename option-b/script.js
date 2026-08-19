@@ -18,52 +18,52 @@ const COURSE = [
 /* ==================== FIXTURES CHẨN ĐOÁN (giả lập) ==================== */
 const CONCEPTS = {
     'valuation-challenge': {
-        name: 'Vì sao start-up khó định giá',
+        name: 'Định giá start-up',
         duration: '2 phút',
         bullets: [
-            'Chưa có lịch sử tài chính đủ dài để ngoại suy',
-            'Doanh thu/lợi nhuận còn nhỏ hoặc âm nên các hệ số quen dùng vô nghĩa',
-            'Rủi ro thất bại cao và ít công ty tương đương để so sánh',
+            'Start-up chưa có lịch sử tài chính đủ dài để ngoại suy',
+            'Doanh thu/lợi nhuận còn nhỏ hoặc âm, các hệ số P/E vô nghĩa',
+            'Rủi ro thất bại cao, ít công ty tương đương để so sánh',
         ],
-        example: 'Ví dụ: một shop online mới 8 tháng, doanh thu chưa ổn định — không thể định giá bằng P/E như doanh nghiệp niêm yết.',
+        example: 'Một shop online mới 8 tháng, doanh thu chưa ổn định — không thể định giá bằng P/E như doanh nghiệp niêm yết.',
     },
     'valuation-method': {
-        name: 'Các phương pháp định giá start-up',
+        name: 'Phương pháp định giá',
         duration: '3 phút',
         bullets: [
             'Cost-to-duplicate: tốn bao nhiêu để dựng lại công ty tương tự từ đầu',
             'Market multiple: so với thương vụ gần nhất trong cùng ngành',
-            'Discounted cash flow: chiết khấu dòng tiền dự phóng, rất nhạy với giả định',
+            'Discounted cash flow (DCF): chiết khấu dòng tiền dự phóng, rất nhạy với giả định',
         ],
         example: 'Cùng một công ty, cost-to-duplicate cho con số thấp nhất, market multiple thường cho con số cao nhất.',
     },
     'pre-post-money': {
-        name: 'Pre-money vs. post-money valuation',
+        name: 'Pre-money vs. Post-money',
         duration: '2 phút',
         bullets: [
-            'Pre-money: giá trị công ty trước khi nhận tiền của vòng này',
-            'Post-money = pre-money + số tiền vừa gọi được',
-            '% cổ phần nhà đầu tư nhận = số tiền đầu tư / post-money',
+            'Pre-money: giá trị công ty TRƯỚC khi nhận tiền vòng này',
+            'Post-money = Pre-money + số tiền vừa gọi được',
+            '% cổ phần nhà đầu tư = Số tiền đầu tư / Post-money',
         ],
-        example: 'Pre-money 4 tỷ, gọi thêm 1 tỷ → post-money 5 tỷ, nhà đầu tư giữ 20%.',
+        example: 'Pre-money 4 tỷ, gọi thêm 1 tỷ → Post-money 5 tỷ, nhà đầu tư giữ 20%.',
     },
     'funding-rounds': {
-        name: 'Các vòng gọi vốn (Seed → Series A/B/C)',
+        name: 'Các vòng gọi vốn',
         duration: '3 phút',
         bullets: [
-            'Seed: tiền để chứng minh có người cần sản phẩm',
+            'Seed: tiền để chứng minh có người cần sản phẩm (MVP)',
             'Series A: đã có tín hiệu thị trường, tiền để mở rộng mô hình',
             'Series B/C: tăng tốc quy mô, mở thị trường mới',
         ],
-        example: 'Mỗi vòng đổi một phần cổ phần lấy tiền, nên founder bị pha loãng dần qua từng vòng.',
+        example: 'Mỗi vòng đổi một phần cổ phần lấy tiền → founder bị pha loãng dần qua từng vòng.',
     },
     'elevator-pitch': {
-        name: 'Elevator pitch (quick pitch)',
+        name: 'Elevator pitch',
         duration: '2 phút',
         bullets: [
-            'Nói được: bán gì — cho ai — vì sao họ chọn bạn, trong khoảng 30 giây',
-            'Viết sau cùng, khi các phần còn lại của business plan đã rõ',
-            'Không dùng thuật ngữ, người ngoài ngành phải hiểu ngay',
+            'Nói được: Bán gì — Cho ai — Vì sao họ chọn bạn, trong 30 giây',
+            'Viết SAU CÙNG, khi các phần business plan đã rõ',
+            'Không dùng thuật ngữ — người ngoài ngành phải hiểu ngay',
         ],
         example: '"Tôi bán bánh mì chay giao tận nơi cho dân văn phòng quận 1, đặt trước 10 phút là có."',
     },
@@ -71,19 +71,19 @@ const CONCEPTS = {
         name: 'Phân tích đối thủ',
         duration: '2 phút',
         bullets: [
-            'Liệt kê đối thủ trực tiếp và cả cách khách hàng đang tự xoay xở',
-            'So sánh trên giá, chất lượng, địa điểm, dịch vụ — không chỉ giá',
-            'Chỉ ra một điểm bạn hơn thật sự và giữ được',
+            'Liệt kê đối thủ trực tiếp VÀ cả cách khách hàng đang tự xoay xở',
+            'So sánh trên: giá, chất lượng, địa điểm, dịch vụ — không chỉ giá',
+            'Chỉ ra MỘT điểm bạn hơn thật sự và giữ được',
         ],
         example: 'Đối thủ của tiệm giặt ủi không chỉ là tiệm bên cạnh, mà còn là chiếc máy giặt ở nhà khách.',
     },
     'revenue-forecast': {
-        name: 'Dự phóng doanh thu & điểm hoà vốn',
+        name: 'Dự phóng doanh thu & hoà vốn',
         duration: '3 phút',
         bullets: [
-            'Doanh thu = số khách × giá trị mỗi đơn × tần suất mua',
-            'Tách chi phí cố định và chi phí biến đổi trước khi tính hoà vốn',
-            'Điểm hoà vốn = chi phí cố định / lợi nhuận gộp mỗi đơn',
+            'Doanh thu = Số khách × Giá trị mỗi đơn × Tần suất mua',
+            'Tách chi phí CỐ ĐỊNH (không đổi) và BIẾN ĐỔI (theo đơn) trước khi tính',
+            'Điểm hoà vốn = Chi phí cố định / Lãi gộp mỗi đơn',
         ],
         example: 'Chi phí cố định 20 triệu/tháng, lãi gộp 40k/đơn → cần 500 đơn/tháng mới hoà vốn.',
     },
@@ -92,24 +92,57 @@ const CONCEPTS = {
 /* Slide + trang → khái niệm khả nghi. Trang không có trong bảng thì AI không gợi ý gì. */
 const SUSPECT_MAP = {
     'funding': {
+        // Section 1: Valuation (trang 1-7)
+        2: 'valuation-challenge',
+        3: 'valuation-challenge',
+        4: 'valuation-challenge',
         5: 'valuation-challenge',
+        6: 'valuation-method',
+        7: 'valuation-method',
+        // Section 2: Funding structure (trang 8-14)
         8: 'valuation-method',
+        9: 'pre-post-money',
+        10: 'pre-post-money',
+        11: 'pre-post-money',
         12: 'pre-post-money',
+        13: 'funding-rounds',
+        14: 'funding-rounds',
+        // Section 3: Funding rounds (trang 15-23)
         15: 'funding-rounds',
+        16: 'funding-rounds',
+        17: 'funding-rounds',
     },
     'business-plan': {
+        // Section 1: Pitch (trang 1-7)
+        2: 'elevator-pitch',
+        3: 'elevator-pitch',
+        4: 'elevator-pitch',
+        5: 'elevator-pitch',
         6: 'elevator-pitch',
+        7: 'competitor-analysis',
+        // Section 2: Analysis (trang 8-14)
+        8: 'competitor-analysis',
+        9: 'competitor-analysis',
+        10: 'competitor-analysis',
+        11: 'competitor-analysis',
+        12: 'competitor-analysis',
+        13: 'revenue-forecast',
         14: 'competitor-analysis',
+        // Section 3: Forecast (trang 15-23)
+        15: 'revenue-forecast',
+        16: 'revenue-forecast',
         17: 'revenue-forecast',
+        18: 'revenue-forecast',
     },
 };
 
 const SIGNAL = {
-    dwellMs: 8000,       // ở cùng một trang bao lâu thì coi là đang vướng
+    dwellMs: 5000,       // ở cùng một trang bao lâu thì coi là đang vướng
     revisitHits: 2,      // quay lại trang đó bao nhiêu lần thì coi là đọc lại
-    tickMs: 1000,
+    tickMs: 500,         // tick nhanh hơn để animate mượt
     snoozeMs: 10 * 60 * 1000,
     minConfidence: 50,   // dưới ngưỡng này thì KHÔNG hiện card
+    mouseActivityMs: 3000, // tối thiểu phải có chuột di chuyển trong 3s
 };
 
 /* ==================== STATE ==================== */
@@ -130,6 +163,17 @@ const state = {
     refresherConcept: null,
     pageBeforeRefresher: null,
     rejected: false,         // user đã bấm "Không đúng" ít nhất 1 lần
+
+    // multi-signal
+    backCount: 0,            // số lần bấm quay lại
+    sidebarToggles: 0,       // số lần mở/đóng sidebar
+    longPauses: 0,           // số lần dừng > 10s mà không di chuyển
+    scrollBacks: 0,          // số lần scroll lên trên
+
+    // mouse activity tracking
+    lastMouseMove: 0,        // timestamp lần cuối chuột di chuyển
+    mouseActive: false,      // chuột có đang di chuyển không
+    dwellProgress: 0,        // % progress của dwell timer (0-100)
 };
 
 /* ==================== DOM ==================== */
@@ -163,6 +207,7 @@ const el = {
     refresherBody: document.getElementById('refresherBody'),
     refresherCloseBtn: document.getElementById('refresherCloseBtn'),
     refresherBackBtn: document.getElementById('refresherBackBtn'),
+    chatbotBtn: document.getElementById('chatbotBtn'),
     annotation: document.getElementById('annotation'),
     annotationToggle: document.getElementById('annotationToggle'),
     signalLog: document.getElementById('signalLog'),
@@ -315,7 +360,10 @@ function setSidebar(open) {
 /* ==================== ENGINE: tín hiệu đọc (giả lập) ==================== */
 function onPageEnter() {
     state.dwellMs = 0;
+    state.dwellProgress = 0;
     state.hint = null;
+    state.mouseActive = false;
+    state.lastMouseMove = Date.now();
     const key = pageKey();
     state.visits[key] = (state.visits[key] || 0) + 1;
 }
@@ -324,9 +372,14 @@ function revisitsHere() {
     return state.visits[pageKey()] || 1;
 }
 
-/* Độ tin cậy suy ra từ dwell + số lần đọc lại. Thuần tính toán, không có model nào cả. */
+/* Độ tin cậy suy ra từ nhiều tín hiệu. Thuần tính toán, không có model nào cả. */
 function confidenceOf(dwellMs, revisits) {
-    const raw = 46 + (dwellMs / 1000) * 1.1 + (revisits - 1) * 11;
+    const dwellScore = (dwellMs / 1000) * 0.8;
+    const revisitScore = (revisits - 1) * 8;
+    const backScore = Math.min(state.backCount * 3, 15);
+    const sidebarScore = Math.min(state.sidebarToggles * 2, 10);
+    const mouseScore = state.mouseActive ? 5 : 0; // Bonus if mouse is active
+    const raw = 40 + dwellScore + revisitScore + backScore + sidebarScore + mouseScore;
     return Math.round(clamp(raw, 45, 92));
 }
 
@@ -343,7 +396,20 @@ function suspectConcept() {
 }
 
 function tick() {
-    if (isObserving()) state.dwellMs += SIGNAL.tickMs;
+    if (isObserving()) {
+        // Check if mouse is active (moved within last 2 seconds)
+        const now = Date.now();
+        state.mouseActive = (now - state.lastMouseMove) < 2000;
+
+        // Only count dwell if mouse is active (user is actually reading)
+        if (state.mouseActive) {
+            state.dwellMs += SIGNAL.tickMs;
+        }
+
+        // Calculate progress for visual feedback
+        state.dwellProgress = Math.min(100, Math.round((state.dwellMs / SIGNAL.dwellMs) * 100));
+    }
+
     if (state.snoozeUntil && !isSnoozed()) state.snoozeUntil = 0;
     evaluateSignal();
     renderObserver();
@@ -368,7 +434,8 @@ function evaluateSignal() {
 }
 
 function showHint(conceptId, confidence, revisits) {
-    state.hint = { conceptId, confidence, revisits, dwellMs: state.dwellMs, mode: 'suggest' };
+    const tier = confidence >= 75 ? 3 : confidence >= 60 ? 2 : 1;
+    state.hint = { conceptId, confidence, revisits, dwellMs: state.dwellMs, mode: 'suggest', tier };
     renderHint();
 }
 
@@ -382,7 +449,20 @@ function renderHint() {
     }
 
     const concept = CONCEPTS[hint.conceptId];
+    const tier = hint.tier || 1;
 
+    // Tier 1: chỉ hiện icon nhỏ
+    if (tier === 1) {
+        el.hint.innerHTML = `
+            <div class="hint-tier1" data-hint="expand">
+                <span aria-hidden="true">💡</span>
+                <span class="hint-tier1-text">Có phần bạn chưa hiểu?</span>
+            </div>`;
+        el.hint.hidden = false;
+        return;
+    }
+
+    // Tier 2: card đơn giản
     const head = `
         <div class="hint-head">
             <span aria-hidden="true">💡</span>
@@ -392,15 +472,28 @@ function renderHint() {
             </button>
         </div>`;
 
-    el.hint.innerHTML = hint.mode === 'alternatives'
-        ? head + renderHintAlternatives(hint)
-        : head + `
+    if (tier === 2) {
+        el.hint.innerHTML = head + `
             <p class="hint-body"><strong>${escapeHtml(concept.name)}</strong></p>
             <div class="hint-actions">
                 <button class="btn btn-sm btn-primary" data-hint="open">Ôn lại (${escapeHtml(concept.duration)})</button>
                 <button class="btn btn-sm btn-ghost" data-hint="reject">Không đúng</button>
             </div>`;
+        el.hint.hidden = false;
+        return;
+    }
 
+    // Tier 3: card đầy đủ + evidence on demand
+    el.hint.innerHTML = head + `
+        <p class="hint-body"><strong>${escapeHtml(concept.name)}</strong></p>
+        <div class="hint-actions">
+            <button class="btn btn-sm btn-primary" data-hint="open">Ôn lại (${escapeHtml(concept.duration)})</button>
+            <button class="btn btn-sm btn-secondary" data-hint="show-evidence">Tại sao?</button>
+            <button class="btn btn-sm btn-ghost" data-hint="reject">Không đúng</button>
+        </div>
+        <div class="hint-evidence-toggle" id="hintEvidence" hidden>
+            <p>Bạn ở trang này <strong>${Math.round(hint.dwellMs / 1000)}s</strong>${hint.revisits > 1 ? ` và quay lại <strong>${hint.revisits} lần</strong>` : ''}.</p>
+        </div>`;
     el.hint.hidden = false;
 }
 
@@ -427,13 +520,31 @@ function renderObserver() {
 
     if (!state.tracking) {
         el.observerText.textContent = 'Đã tắt';
+        el.observerChip.classList.remove('dwell-active', 'dwell-done');
     } else if (isSnoozed()) {
         const left = Math.max(0, state.snoozeUntil - Date.now());
         const mm = String(Math.floor(left / 60000)).padStart(2, '0');
         const ss = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
         el.observerText.textContent = `Tạm ngừng ${mm}:${ss}`;
+        el.observerChip.classList.remove('dwell-active', 'dwell-done');
+    } else if (state.hint || state.refresherConcept) {
+        // Already showing hint or refresher
+        el.observerText.textContent = 'Gợi ý';
+        el.observerChip.classList.remove('dwell-active');
+        el.observerChip.classList.add('dwell-done');
+    } else if (state.dwellProgress > 0 && state.dwellProgress < 100) {
+        // Dwell in progress - show animated text
+        el.observerText.textContent = `Đang đọc ${state.dwellProgress}%`;
+        el.observerChip.classList.add('dwell-active');
+        el.observerChip.classList.remove('dwell-done');
+    } else if (state.dwellProgress >= 100) {
+        // Dwell complete but hint not yet shown (waiting for confidence check)
+        el.observerText.textContent = 'Phân tích...';
+        el.observerChip.classList.remove('dwell-active');
+        el.observerChip.classList.add('dwell-done');
     } else {
         el.observerText.textContent = 'Hỗ trợ';
+        el.observerChip.classList.remove('dwell-active', 'dwell-done');
     }
 }
 
@@ -441,6 +552,7 @@ function renderSignalLog() {
     const conceptId = suspectConcept();
     const revisits = revisitsHere();
     const confidence = confidenceOf(state.dwellMs, revisits);
+    const mouseIcon = state.mouseActive ? '✓' : '✗';
     const status = !state.tracking ? 'tracking OFF'
         : isSnoozed() ? 'snoozed'
         : !conceptId ? 'trang này không có khái niệm mapping'
@@ -450,7 +562,7 @@ function renderSignalLog() {
         : 'đủ điều kiện, chờ tick';
 
     el.signalLog.textContent =
-        `trang ${state.page} · dwell ${Math.round(state.dwellMs / 1000)}s · revisit ${revisits} · confidence ${confidence}% → ${status}`;
+        `trang ${state.page} · dwell ${Math.round(state.dwellMs / 1000)}s · chuột ${mouseIcon} · revisit ${revisits} · confidence ${confidence}% → ${status}`;
 }
 
 /* ==================== ACTIONS: card / refresher / privacy ==================== */
@@ -466,6 +578,19 @@ function rejectHint() {
     state.rejected = true;
     state.hint.mode = 'alternatives';
     renderHint();
+}
+
+function expandHint() {
+    if (!state.hint) return;
+    state.hint.tier = 2;
+    renderHint();
+}
+
+function toggleEvidence() {
+    const evidence = document.getElementById('hintEvidence');
+    if (evidence) {
+        evidence.hidden = !evidence.hidden;
+    }
 }
 
 function openRefresher(conceptId) {
@@ -527,12 +652,19 @@ function closeObserverMenu() {
 function resetContext() {
     state.page = 1;
     state.dwellMs = 0;
+    state.dwellProgress = 0;
     state.visits = {};
     state.dismissed = new Set();
     state.hint = null;
     state.rejected = false;
     state.tracking = true;
     state.snoozeUntil = 0;
+    state.backCount = 0;
+    state.sidebarToggles = 0;
+    state.longPauses = 0;
+    state.scrollBacks = 0;
+    state.mouseActive = false;
+    state.lastMouseMove = Date.now();
     closeRefresher(false);
     closeObserverMenu();
     el.notice.hidden = false;
@@ -552,7 +684,10 @@ el.outline.addEventListener('click', (event) => {
     if (itemBtn) selectItem(Number(itemBtn.dataset.module), Number(itemBtn.dataset.item));
 });
 
-el.prevBtn.addEventListener('click', () => goToPage(state.page - 1));
+el.prevBtn.addEventListener('click', () => {
+    state.backCount++;
+    goToPage(state.page - 1);
+});
 el.nextBtn.addEventListener('click', () => goToPage(state.page + 1));
 
 el.pageInput.addEventListener('keydown', (event) => {
@@ -563,9 +698,18 @@ el.pageInput.addEventListener('keydown', (event) => {
 });
 el.pageInput.addEventListener('blur', () => goToPage(el.pageInput.value));
 
-el.sidebarCloseBtn.addEventListener('click', () => setSidebar(false));
-el.sidebarReopenBtn.addEventListener('click', () => setSidebar(true));
-el.sidebarBackdrop.addEventListener('click', () => setSidebar(false));
+el.sidebarCloseBtn.addEventListener('click', () => {
+    state.sidebarToggles++;
+    setSidebar(false);
+});
+el.sidebarReopenBtn.addEventListener('click', () => {
+    state.sidebarToggles++;
+    setSidebar(true);
+});
+el.sidebarBackdrop.addEventListener('click', () => {
+    state.sidebarToggles++;
+    setSidebar(false);
+});
 
 document.addEventListener('keydown', (event) => {
     const tag = document.activeElement && document.activeElement.tagName;
@@ -582,6 +726,8 @@ el.hint.addEventListener('click', (event) => {
         if (action.dataset.hint === 'open') openRefresher(state.hint && state.hint.conceptId);
         if (action.dataset.hint === 'reject') rejectHint();
         if (action.dataset.hint === 'dismiss') dismissHint();
+        if (action.dataset.hint === 'expand') expandHint();
+        if (action.dataset.hint === 'show-evidence') toggleEvidence();
         return;
     }
     const alt = event.target.closest('[data-concept]');
@@ -617,6 +763,22 @@ el.annotationToggle.addEventListener('click', () => {
 
 /* Demo controls cho facilitator */
 el.resetBtn.addEventListener('click', resetContext);
+
+/* Chatbot button — feature có sẵn */
+el.chatbotBtn.addEventListener('click', () => {
+    /* Placeholder: chatbot interface is a pre-existing feature */
+});
+
+/* ==================== MOUSE TRACKING ==================== */
+document.addEventListener('mousemove', () => {
+    state.lastMouseMove = Date.now();
+    state.mouseActive = true;
+});
+
+document.addEventListener('scroll', () => {
+    state.lastMouseMove = Date.now();
+    state.mouseActive = true;
+});
 
 /* ==================== INIT ==================== */
 const isNarrow = () => window.matchMedia('(max-width: 900px)').matches;

@@ -71,9 +71,9 @@ Problem ở Chặng 1 thuần về **đọc slide không hiểu**; ba solution k
 
 | Thành phần | Option A — AI hỏi trước | Option B — AI chủ động | Option C — Bạn dẫn dắt |
 |---|---|---|---|
-| Mechanism | Checkpoint tự báo cáo có cấu trúc | Suy luận từ tín hiệu đọc trong phiên | User khoanh vùng công thức + trả lời làm rõ |
-| User làm gì | Chọn điều gần nhất với chỗ chưa rõ | Đọc evidence, duyệt, sửa, ẩn hoặc tắt quan sát | Chọn một phần công thức và xác nhận cách hiểu |
-| AI làm gì | Hỏi rồi ánh xạ câu trả lời vào concept map | Đưa giả thuyết 68% và chờ user quyết định | Chỉ phân tích phạm vi user chọn rồi tóm tắt |
+| Mechanism | Checkpoint tự báo cáo có cấu trúc | Multi-signal dwell + mouse tracking → tiered hints | User khoanh vùng → AI hỏi làm rõ → xác nhận |
+| User làm gì | Chọn điều gần nhất với chỗ chưa rõ | Đọc evidence, duyệt, sửa, ẩn hoặc tắt quan sát | Chọn phần chưa hiểu, trả lời câu làm rõ, xác nhận |
+| AI làm gì | Hỏi rồi ánh xạ câu trả lời vào concept map | Đưa giả thuyết theo tier (1: pill, 2: card, 3: card + evidence) và chờ user | Hỏi một câu làm rõ, chờ user xác nhận trước khi mở bài ôn |
 | Agency | **Ask** trước khi đề xuất | **Suggest**, không tự mở bài ôn | **Don't act** đến khi user khởi tạo; sau đó **Ask** |
 | Trade-off | Evidence trực tiếp nhưng làm gián đoạn | Ít effort nhưng có rủi ro đoán sai/privacy | Nhiều control nhưng đòi hỏi user biết bắt đầu từ đâu |
 
@@ -82,10 +82,10 @@ Problem ở Chặng 1 thuần về **đọc slide không hiểu**; ba solution k
 | Thành phần | Option A — **Reactive checkpoint** | Option B — **Proactive observer** | Option C — **Collaborative diagnosis** |
 |---|---|---|---|
 | **AI giống như...** | Thầy giáo **hỏi** để tìm ra learner chưa hiểu chỗ nào | Thầy giáo **quan sát** learner dừng lâu ở một phần, tự đoán rồi gợi ý | Learner **tự chỉ chỗ mắc** và thầy **hỏi lại** để chốt đúng gap |
-| **Solution mechanism** | AI đưa checkpoint có cấu trúc. Learner chọn mô tả gần nhất với điểm chưa rõ; AI ánh xạ lựa chọn vào concept map rồi đề xuất refresher. | AI dùng dwell time và số lần quay lại để dựng “giả thuyết gap”; hiện card “Có thể bạn vướng X” kèm evidence, uncertainty và lựa chọn sửa/ẩn/tắt quan sát. | Learner chủ động chọn một phần công thức; AI hỏi một câu làm rõ, ánh xạ vào concept map rồi yêu cầu learner xác nhận trước khi mở refresher. |
-| **User làm gì?** | Đọc slide, bắt đầu checkpoint, chọn mô tả, duyệt/chọn lại kết quả. | Học bình thường; khi card hiện, đọc evidence rồi mở, sửa, ẩn hoặc tắt quan sát. | Khởi động, chọn phạm vi khó hiểu, trả lời câu làm rõ, xác nhận hoặc sửa kết luận. |
-| **AI làm gì?** | Hỏi trước, đối chiếu câu trả lời với concept map, đề xuất đúng refresher. | Mô hình hóa tín hiệu đọc trong phiên, xếp hạng concept khả nghi, đưa gợi ý xác suất và chờ user. | Chỉ phân tích phạm vi user chọn, hỏi làm rõ, tóm tắt evidence và chờ xác nhận. |
-| **Trigger** | Learner bấm bắt đầu checkpoint. | Tín hiệu mẫu: dừng 52 giây và quay lại ký hiệu ∂ / ∂θⱼ ba lần. | Learner bấm “Chọn phần chưa hiểu”. |
+| **Solution mechanism** | AI đưa checkpoint có cấu trúc. Learner chọn mô tả gần nhất với điểm chưa rõ; AI ánh xạ lựa chọn vào concept map rồi đề xuất refresher. | AI dùng dwell time (5s) + mouse activity + revisits + sidebar/back signals để tính confidence theo tier; hiện hint từ pill → card → card + evidence, chờ user quyết định. | Learner chọn phần chưa hiểu; AI hỏi một câu làm rõ; learner xác nhận trước khi mở refresher. |
+| **User làm gì?** | Đọc slide, bắt đầu checkpoint, chọn mô tả, duyệt/chọn lại kết quả. | Học bình thường; khi hint hiện, đọc evidence rồi mở, sửa, ẩn hoặc tắt quan sát. | Bấm FAB, chọn khái niệm, trả lời câu làm rõ, xác nhận hoặc chọn lại. |
+| **AI làm gì?** | Hỏi trước, đối chiếu câu trả lời với concept map, đề xuất đúng refresher. | Tính confidence từ 5 signals (dwell, mouse, revisits, back, sidebar); hiện hint theo tier; chờ user mở/ẩn/tắt. | Hỏi một câu làm rõ, chờ user xác nhận, mở refresher. |
+| **Trigger** | Learner bấm bắt đầu checkpoint. | Dwell 5s + mouse active trên cùng trang, hoặc quay lại 2+ lần. | Learner bấm FAB (icon bottom-right). |
 | **Trade-off chính** | Chẩn đoán dựa trên evidence trực tiếp nhưng làm gián đoạn luồng đọc và có thể tạo cảm giác bị kiểm tra. | Ít effort và proactive nhưng có thể đoán sai hoặc gây lo ngại privacy/cold-start. | Tôn trọng quyền learner nhất nhưng yêu cầu learner biết bắt đầu khoanh vùng từ đâu. |
 
 **Vị trí trên spectrum agency**
@@ -129,14 +129,14 @@ AI INITIATES / USER REVIEWS (B)
 
 #### 3. Evidence and Uncertainty
 
-- **Option A:** Evidence là lựa chọn trực tiếp của learner; result trích nguyên cách hiểu đã chọn và gắn “mức chắc chắn cao”.
-- **Option B:** Evidence là dừng 52 giây và quay lại ký hiệu ba lần; uncertainty hiển thị bằng “Có thể...” và badge `68% chắc chắn`.
-- **Option C:** Evidence gồm phần công thức learner chọn và câu trả lời làm rõ; uncertainty chuyển thành trạng thái `Chờ bạn xác nhận`.
+- **Option A:** Evidence là lựa chọn trực tiếp của learner; result trích nguyên cách hiểu đã chọn và gắn "mức chắc chắn cao".
+- **Option B:** Evidence gồm dwell time, mouse activity, số lần quay lại, sidebar toggles, back clicks; uncertainty hiển thị theo tier (Tier 1: pill không evidence, Tier 2: card có confidence, Tier 3: card + evidence on demand).
+- **Option C:** Evidence gồm phần công thức learner chọn và câu trả lời làm rõ; uncertainty chuyển thành trạng thái "Chờ bạn xác nhận".
 
 #### 4. Control and Recovery
 
 - **Option A:** chọn lại câu trả lời, bỏ qua result, đóng preview, reset option và reset toàn bộ.
-- **Option B:** “Không đúng”, chọn concept khác, ẩn/khôi phục gợi ý, tắt quan sát, tiếp tục không có AI và reset.
+- **Option B:** "Không đúng", chọn concept khác, ẩn/khôi phục gợi ý, tắt quan sát, tiếp tục không có AI và reset.
 - **Option C:** sửa phần đã chọn, trả lời lại câu làm rõ, bỏ qua result và reset.
 - Sau refresher, mọi option quay lại đúng Slide 04 và giữ nguyên tiến độ bài học.
 
@@ -144,13 +144,13 @@ AI INITIATES / USER REVIEWS (B)
 
 | Human–AI decision | Option A | Option B | Option C |
 |---|---|---|---|
-| User/AI làm gì? | AI hỏi; user tự báo cáo; AI đề xuất | AI quan sát trong phiên; user duyệt hoặc sửa | User chọn phạm vi; AI hỏi một câu; user xác nhận |
+| User/AI làm gì? | AI hỏi; user tự báo cáo; AI đề xuất | AI quan sát trong phiên; user duyệt hoặc sửa | User chọn phần chưa hiểu; AI hỏi làm rõ; user xác nhận |
 | Act / Ask / Don't Act | Ask trước khi đề xuất | Suggest & wait | Don't act → Ask → wait |
-| Capability/limit | Hiện trước checkpoint; chỉ dùng concept map Chương 3 | Hiện trước khi quan sát; không ghi âm/dùng dữ liệu ngoài màn hình | Hiện trước khi chọn; chỉ phân tích phạm vi user chọn |
-| Evidence/uncertainty | Trích chính lựa chọn của user; “mức chắc chắn cao” | Hiện 52 giây, ba lần quay lại và 68% | Trích phần user chọn + câu trả lời; “chờ bạn xác nhận” |
-| Control/recovery | Chọn lại, bỏ qua, preview, reset | Sửa gợi ý, ẩn/khôi phục, tắt quan sát, reset | Sửa phạm vi, chọn lại câu trả lời, bỏ qua, reset |
+| Capability/limit | Hiện trước checkpoint; chỉ dùng concept map Chương 3 | Hiện trước khi quan sát; dwell 5s + mouse + signals; không ghi âm/dùng dữ liệu ngoài màn hình | Hiện trước khi chọn; chỉ phân tích phần user chọn |
+| Evidence/uncertainty | Trích chính lựa chọn của user; "mức chắc chắn cao" | Multi-signal confidence theo tier (pill → card → card + evidence) | Trích phần user chọn + câu làm rõ; "chờ bạn xác nhận" |
+| Control/recovery | Chọn lại, bỏ qua, preview, reset | Sửa gợi ý, ẩn/khôi phục, tắt quan sát, reset | Chọn lại, trả lời lại, bỏ qua, reset |
 
-**Feedback & data check:** Option B nói rõ quan sát chỉ áp dụng trong phiên hiện tại. Tắt toggle dừng dùng tín hiệu đọc; phản hồi “Không đúng” chỉ sửa đề xuất hiện tại, prototype không tuyên bố học cho phiên sau.
+**Feedback & data check:** Option B nói rõ quan sát chỉ áp dụng trong phiên hiện tại. Tắt toggle dừng dùng tín hiệu đọc; phản hồi "Không đúng" chỉ sửa đề xuất hiện tại, prototype không tuyên bố học cho phiên sau. Option C nói rõ AI chỉ phân tích phần user chọn và cần user xác nhận trước khi mở bài ôn.
 
 **Tự kiểm GATE 3 — Human control**
 
@@ -174,12 +174,16 @@ RESULT / USER DECISION
 Các đường test chính:
 
 - A: Bắt đầu checkpoint → chọn mô tả → xem evidence → chọn lại / preview / bỏ qua.
-- B: Tiếp tục phiên → xem gợi ý 68% → sửa / ẩn / tắt quan sát / preview.
-- C: Chọn phần công thức → trả lời một câu làm rõ → xác nhận / sửa / preview.
-- Nút `↻` trong panel reset option hiện tại; `Đặt lại` ở header reset toàn bộ A/B/C.
-- Sau bài ôn, learner quay lại đúng Slide 04 và có thể chuyển sang option tiếp theo.
+- B: Tiếp tục phiên → observer chip animate "Đang đọc X%" → hint tier 1 (pill) → expand → tier 2/3 → mở bài ôn / ẩn / tắt quan sát.
+- C: Bấm FAB → chọn khái niệm → câu làm rõ → xác nhận → refresher → xong / chọn lại.
 
-**Prototype annotation:** Mở `?facilitator=1` để xem `We expect the tester to`, `Watch for`, `Do not explain`. Annotation nằm ngoài prototype frame và bị ẩn hoàn toàn trong tester mode.
+Truy cập trực tiếp:
+
+- Option A: `http://127.0.0.1:4173/option-a/index.html`
+- Option B: `http://127.0.0.1:4173/option-b/index.html`
+- Option C: `http://127.0.0.1:4173/option-c/index.html`
+
+**Prototype annotation:** Mỗi option có file `ANNOTATION.md` mô tả We expect the tester to, Watch for, Do not explain.
 
 **Tự kiểm GATE 4 — Test-ready**
 
@@ -187,17 +191,17 @@ Các đường test chính:
 - [x] Cả ba bắt đầu từ cùng context và outcome task.
 - [x] Không cần facilitator narrate trigger ẩn hoặc nút giả lập.
 - [x] Mỗi option có evidence, uncertainty và điểm user lấy lại control.
-- [x] Có reset riêng từng option và reset toàn bộ về common context.
+- [x] Có path quay lại slide sau khi mở refresher.
 
 ## Chặng 5 — Test protocol
 
-**Relevant context:** “Gần đây bạn có từng đọc lại một công thức nhiều lần mà vẫn chưa biết mình đang thiếu kiến thức nền nào không?”
+**Relevant context:** "Gần đây bạn có từng đọc lại một công thức nhiều lần mà vẫn chưa biết mình đang thiếu kiến thức nền nào không?"
 
-**Outcome task:** “Trong tình huống này, hãy dùng từng phương án để tìm đúng kiến thức cần ôn và quyết định bước tiếp theo.”
+**Outcome task:** "Trong tình huống này, hãy dùng từng phương án để tìm đúng kiến thức cần ôn và quyết định bước tiếp theo."
 
 **Observation focus:** first action · hesitation · evidence read/ignored · correction/recovery · option được chọn và trade-off.
 
-Facilitator dùng cùng task cho A/B/C, không giải thích icon hoặc cơ chế. Khi tester hỏi cách hoạt động, hỏi lại: “Theo bạn, nó nên hoạt động như thế nào?”
+Facilitator dùng cùng task cho A/B/C, không giải thích icon hoặc cơ chế. Khi tester hỏi cách hoạt động, hỏi lại: "Theo bạn, nó nên hoạt động như thế nào?"
 
 ## Chặng 6 — Test với ba người (GATE 5)
 
@@ -220,4 +224,4 @@ Không điền giả ba Feedback Notes. Gate này chỉ đạt sau khi có ba te
 - một Next Change dựa trên evidence;
 - một điều Still Unproven.
 
-“Ba tester thích B” không đủ nếu thiếu hành vi và trade-off đi kèm.
+"Ba tester thích B" không đủ nếu thiếu hành vi và trade-off đi kèm.
