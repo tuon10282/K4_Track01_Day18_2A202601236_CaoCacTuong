@@ -171,6 +171,7 @@ const el = {
     backBtn: document.getElementById('backBtn'),
     chatbotBtn: document.getElementById('chatbotBtn'),
     checkpointBtn: document.getElementById('checkpointBtn'),
+    checkpointBtnLabel: document.querySelector('#checkpointBtn span'),
     stageAiBtn: document.getElementById('stageAiBtn'),
     demoPageBtn: document.getElementById('demoPageBtn'),
     resetBtn: document.getElementById('resetBtn'),
@@ -183,6 +184,10 @@ const el = {
     assistBody: document.getElementById('assistBody'),
     assistFoot: document.getElementById('assistFoot'),
     assistCloseBtn: document.getElementById('assistCloseBtn'),
+    assistDeckLabel: document.getElementById('assistDeckLabel'),
+    assistPageLabel: document.getElementById('assistPageLabel'),
+    askStatus: document.getElementById('askStatus'),
+    askStatusText: document.getElementById('askStatusText'),
     annotationToggle: document.getElementById('annotationToggle'),
     annotation: document.getElementById('annotation'),
     stateLog: document.getElementById('stateLog'),
@@ -307,23 +312,28 @@ function renderQuestion() {
     el.assistKicker.textContent = 'Bạn tự báo cáo';
     el.assistTitle.textContent = 'Checkpoint · 1 câu';
     el.assistBody.innerHTML = `
-        <p class="assist-note"><strong>AI không quan sát cách bạn đọc.</strong> Kết quả bên dưới chỉ dựa trên lựa chọn bạn gửi ở bước này.</p>
-        <p class="checkpoint-prompt"><strong>Ở đoạn vừa đọc, điều nào gần nhất với chỗ bạn chưa rõ?</strong></p>
-        <p class="checkpoint-context">${mapped ? `Gợi ý theo nội dung trang ${state.page}.` : 'Chọn mô tả gần nhất; bạn có thể chọn lại trước khi mở bài ôn.'}</p>
+        <div class="question-intro">
+            <span class="question-index" aria-hidden="true">01</span>
+            <div>
+                <p class="checkpoint-prompt"><strong>Ở đoạn vừa đọc, điều nào gần nhất với chỗ bạn chưa rõ?</strong></p>
+                <p class="checkpoint-context">Không có đáp án đúng hoặc sai. ${mapped ? `Các lựa chọn đang bám theo nội dung trang ${state.page}.` : 'Hãy chọn mô tả gần nhất với suy nghĩ của bạn.'}</p>
+            </div>
+        </div>
         <div class="checkpoint-choices">
-            ${choices.map((conceptId) => {
+            ${choices.map((conceptId, index) => {
                 const report = SELF_REPORTS[conceptId];
                 const selected = state.assist.selection === conceptId;
                 return `
                     <button class="checkpoint-choice${selected ? ' is-selected' : ''}" data-assist="choose" data-concept="${conceptId}" aria-pressed="${selected}">
-                        <span class="choice-mark" aria-hidden="true">✓</span>
+                        <span class="choice-mark" aria-hidden="true">${String.fromCharCode(65 + index)}</span>
                         <span>
                             <span class="choice-title">${escapeHtml(report.title)}</span>
                             <span class="choice-detail">${escapeHtml(report.detail)}</span>
                         </span>
                     </button>`;
             }).join('')}
-        </div>`;
+        </div>
+        <p class="privacy-line"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 9V6.5a5 5 0 0 1 10 0V9m-9 0h8a1 1 0 0 1 1 1v6H5v-6a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/></svg>AI chỉ nhận lựa chọn sau khi bạn bấm “Xem gợi ý phù hợp”.</p>`;
     el.assistFoot.innerHTML = `
         <button class="btn btn-primary" data-assist="diagnose" ${state.assist.selection ? '' : 'disabled'}>Xem gợi ý phù hợp</button>
         <button class="btn btn-ghost" data-assist="skip">Bỏ qua checkpoint</button>`;
@@ -335,17 +345,26 @@ function renderResult() {
     el.assistKicker.textContent = 'Bạn duyệt kết quả';
     el.assistTitle.textContent = 'Gợi ý từ câu trả lời';
     el.assistBody.innerHTML = `
-        <p class="assist-note"><strong>Giới hạn bằng chứng:</strong> AI chỉ map câu bạn vừa chọn sang concept tương ứng; không dùng thời gian đọc, số lần quay lại hay hành vi ngoài câu trả lời.</p>
-        <blockquote class="result-evidence">
-            <small>Bằng chứng trực tiếp từ bạn</small>
-            “${escapeHtml(report.detail)}”
-        </blockquote>
-        <div class="result-gap">
-            <p class="result-gap-label">Concept có thể cần ôn</p>
-            <p class="result-gap-name">${escapeHtml(concept.name)}</p>
-            <p class="confidence-high"><strong>Bằng chứng trực tiếp</strong> · chờ bạn xác nhận trước khi mở</p>
+        <p class="decision-lead">Đây là cách AI đi từ câu trả lời của bạn tới bài ôn được đề xuất.</p>
+        <ol class="evidence-trail" aria-label="Đường dẫn bằng chứng">
+            <li class="trail-step is-source">
+                <span class="trail-mark">1</span>
+                <div><small>Bạn tự báo cáo</small><strong>“${escapeHtml(report.detail)}”</strong></div>
+            </li>
+            <li class="trail-step is-map">
+                <span class="trail-mark">2</span>
+                <div><small>Đối chiếu thư viện bài học</small><strong>${escapeHtml(concept.name)}</strong></div>
+            </li>
+            <li class="trail-step is-gate">
+                <span class="trail-mark">3</span>
+                <div><small>Quyền quyết định thuộc về bạn</small><strong>Chờ bạn xác nhận</strong></div>
+            </li>
+        </ol>
+        <div class="result-gap review-gate">
+            <div class="review-gate-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2.5 16 5v4.6c0 3.8-2.5 6.4-6 7.9-3.5-1.5-6-4.1-6-7.9V5l6-2.5Z" stroke="currentColor" stroke-width="1.5"/><path d="m7.4 10 1.6 1.6 3.6-3.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><p class="result-gap-label">Đề xuất để bạn duyệt</p><p class="result-gap-name">${escapeHtml(concept.name)} · ${escapeHtml(concept.duration)}</p></div>
         </div>
-        <p class="control-note">Nếu mapping chưa đúng, chọn lại hoặc bỏ qua. Slide hiện tại chưa bị thay đổi.</p>`;
+        <p class="control-note">Không có bài ôn nào được mở cho tới khi bạn xác nhận. Slide hiện tại vẫn giữ nguyên.</p>`;
     el.assistFoot.innerHTML = `
         <button class="btn btn-primary" data-assist="open">Đúng, mở bài ôn</button>
         <button class="btn btn-secondary" data-assist="correct">Chọn lại câu trả lời</button>
@@ -357,12 +376,15 @@ function renderRefresher() {
     el.assistKicker.textContent = 'Bài ôn theo yêu cầu';
     el.assistTitle.textContent = concept.name;
     el.assistBody.innerHTML = `
-        <span class="assist-meta">${escapeHtml(concept.duration)}</span>
-        <p class="assist-note">Bài ôn được mở sau khi bạn xác nhận. Trang slide vẫn giữ ở ${state.page}/${currentItem().pages}.</p>
-        <h3>Ý chính</h3>
-        <ul>${concept.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul>
+        <div class="refresher-hero">
+            <span class="assist-meta">${escapeHtml(concept.duration)}</span>
+            <p>Chỉ tập trung vào concept bạn vừa duyệt.</p>
+        </div>
+        <h3>Ba ý cần giữ lại</h3>
+        <ol class="lesson-points">${concept.bullets.map((bullet, index) => `<li><span>${index + 1}</span><p>${escapeHtml(bullet)}</p></li>`).join('')}</ol>
         <h3>Ví dụ</h3>
-        <div class="assist-example">${escapeHtml(concept.example)}</div>`;
+        <div class="assist-example"><span>Áp dụng nhanh</span>${escapeHtml(concept.example)}</div>
+        <div class="return-anchor"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.5 10H5m0 0 4-4m-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Điểm quay lại</span><strong>${escapeHtml(currentItem().title)} · trang ${state.page}</strong></div>`;
     el.assistFoot.innerHTML = `
         <button class="btn btn-primary" data-assist="done">Đã hiểu, quay lại slide</button>
         <button class="btn btn-ghost" data-assist="correct">Chọn lại chủ đề</button>`;
@@ -374,37 +396,51 @@ function renderTerminal(skipped) {
     el.assistBody.innerHTML = `
         <div class="terminal-icon" aria-hidden="true">${skipped ? '—' : '✓'}</div>
         <p><strong>${skipped ? 'Không có bài ôn nào được tự động mở.' : 'Tiến trình bài học đã được giữ nguyên.'}</strong></p>
-        <p class="control-note">${skipped ? 'Bạn có thể bắt đầu lại checkpoint bất cứ lúc nào.' : `Bạn có thể tiếp tục từ trang ${state.page} hoặc mở lại checkpoint khi cần.`}</p>`;
+        <p class="control-note">${skipped ? 'Bạn có thể bắt đầu lại checkpoint bất cứ lúc nào.' : `Bạn có thể tiếp tục từ trang ${state.page} hoặc mở lại checkpoint khi cần.`}</p>
+        <div class="return-anchor compact"><span>${skipped ? 'Không thay đổi nội dung' : 'Sẵn sàng tiếp tục'}</span><strong>${escapeHtml(currentItem().title)} · trang ${state.page}</strong></div>`;
     el.assistFoot.innerHTML = `
         <button class="btn btn-primary" data-assist="${skipped ? 'restart' : 'close'}">${skipped ? 'Bắt đầu lại' : 'Quay lại slide'}</button>
         ${skipped ? '<button class="btn btn-ghost" data-assist="close">Đóng</button>' : '<button class="btn btn-ghost" data-assist="restart">Checkpoint khác</button>'}`;
 }
 
 function renderSupportStatus() {
-    const status = document.querySelector('.ask-status');
-    if (status) {
-        const textNode = Array.from(status.childNodes).find((node) => node.nodeType === Node.TEXT_NODE);
-        if (textNode) textNode.textContent = state.supportDisabled ? ' AI đang tắt' : ' AI chờ bạn';
-    }
-    el.checkpointBtn.textContent = state.supportDisabled ? 'Bật lại checkpoint' : 'Bắt đầu checkpoint';
+    const statusByStep = {
+        idle: 'AI chờ bạn',
+        question: 'AI đang hỏi',
+        result: 'Chờ bạn duyệt',
+        refresher: 'Đang ôn nhanh',
+        done: 'Đã hoàn tất',
+        skipped: 'Đã bỏ qua',
+    };
+    const status = state.supportDisabled ? 'AI đang tắt' : statusByStep[state.assist.step];
+    el.askStatusText.textContent = status;
+    el.askStatus.dataset.state = state.supportDisabled ? 'off' : state.assist.step;
+    el.checkpointBtnLabel.textContent = state.supportDisabled ? 'Bật lại checkpoint' : 'Bắt đầu checkpoint';
+    el.stageAiBtn.classList.toggle('is-active', state.assist.step !== 'idle');
+    el.stageAiBtn.setAttribute('aria-pressed', String(state.assist.step !== 'idle'));
 }
 
 function renderAssist() {
     if (state.assist.step === 'idle') {
         el.assist.hidden = true;
         el.body.classList.remove('assist-open');
+        renderSupportStatus();
         renderStateLog();
         return;
     }
 
     el.assist.hidden = false;
     el.body.classList.add('assist-open');
+    el.assist.dataset.step = state.assist.step;
+    el.assistDeckLabel.textContent = currentItem().title;
+    el.assistPageLabel.textContent = `Trang ${state.page}/${currentItem().pages}`;
     if (state.assist.step === 'question') renderQuestion();
     if (state.assist.step === 'result') renderResult();
     if (state.assist.step === 'refresher') renderRefresher();
     if (state.assist.step === 'done') renderTerminal(false);
     if (state.assist.step === 'skipped') renderTerminal(true);
     renderAssistProgress();
+    renderSupportStatus();
     renderStateLog();
 }
 
@@ -604,6 +640,7 @@ window.addEventListener('resize', () => setSidebar(!el.body.classList.contains('
 
 el.lessonTitle.textContent = LESSON_TITLE;
 document.title = `${LESSON_TITLE} · Option A`;
+el.annotationToggle.hidden = new URLSearchParams(window.location.search).get('facilitator') !== '1';
 state.visited.add(currentItem().id);
 setSidebar(!isNarrow());
 render();

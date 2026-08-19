@@ -36,7 +36,8 @@ assert(
   'question, approval, and refresher states are wired'
 );
 assert(
-  script.includes('Bằng chứng trực tiếp từ bạn') &&
+  script.includes('Bạn tự báo cáo') &&
+  script.includes('Chờ bạn xác nhận') &&
   script.includes('Chọn lại câu trả lời') &&
   script.includes('Không đúng, bỏ qua'),
   'evidence and recovery controls are explicit'
@@ -54,6 +55,12 @@ assert(
 );
 assert([...scriptIds].every((id) => htmlIds.has(id)), 'all JavaScript element IDs exist in HTML');
 assert(css.includes('.assist') && css.includes('@media (max-width: 900px)'), 'assist panel has responsive behavior');
+assert(
+  css.includes('.evidence-trail') &&
+  css.includes('.lesson-points') &&
+  script.includes("result: 'Chờ bạn duyệt'"),
+  'creative evidence trail, lesson points, and dynamic status are wired'
+);
 assert(!html.includes('68%') && !script.includes('dwellMs:'), 'Option B observer mechanism is excluded');
 
 new Function(script);

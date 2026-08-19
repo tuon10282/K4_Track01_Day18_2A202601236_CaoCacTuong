@@ -19,7 +19,7 @@
             <h1 class="lesson-title" id="lessonTitle">Bài 2 · Start-Up Finance — Funding &amp; Business Plan</h1>
         </div>
         <div class="header-right">
-            <span class="ask-status"><i aria-hidden="true"></i> AI chờ bạn</span>
+            <span class="ask-status" id="askStatus"><i aria-hidden="true"></i><span id="askStatusText">AI chờ bạn</span></span>
             <div class="progress" id="progress"><span class="progress-label" id="progressLabel">0/2 bài</span><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="progress-fill"></div></div></div>
             <span class="header-divider" aria-hidden="true"></span>
             <button class="icon-btn accent" id="chatbotBtn" aria-label="Bắt đầu checkpoint AI">
@@ -30,7 +30,7 @@
     </header>
 
     <div class="notice" id="notice">
-        <span class="notice-icon" aria-hidden="true">?</span>
+        <span class="notice-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2.5 16 5v4.6c0 3.8-2.5 6.4-6 7.9-3.5-1.5-6-4.1-6-7.9V5l6-2.5Z" stroke="currentColor" stroke-width="1.6"/><path d="m7.4 10 1.6 1.6 3.6-3.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <p class="notice-text"><strong>AI không quan sát cách bạn đọc.</strong> Khi bạn chủ động bắt đầu checkpoint, AI sẽ hỏi một câu rồi mới đề xuất bài ôn. AI không tự mở nội dung và chỉ dùng câu trả lời của bạn làm bằng chứng.</p>
         <div class="notice-actions"><button class="btn btn-sm btn-primary" id="noticeOkBtn">Đã hiểu</button><button class="btn btn-sm btn-ghost" id="noticeSkipBtn">Không dùng hỗ trợ</button></div>
     </div>
@@ -46,7 +46,7 @@
             <div class="viewer-toolbar">
                 <div class="toolbar-left">
                     <button class="icon-btn accent round" id="noteBtn" aria-label="Ghi chú"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M12.2 2.8a1.7 1.7 0 0 1 2.4 2.4L6.9 12.9l-3 .8.8-3 7.5-7.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="btn btn-sm btn-secondary" id="checkpointBtn">Bắt đầu checkpoint</button>
+                    <button class="btn btn-sm btn-secondary checkpoint-trigger" id="checkpointBtn"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5l1.4 3.6L15 7.5l-3.6 1.4L10 12.5 8.6 8.9 5 7.5l3.6-1.4L10 2.5Z" fill="currentColor"/></svg><span>Bắt đầu checkpoint</span></button>
                     <button class="btn btn-sm btn-ghost" id="demoPageBtn">Tới trang demo</button>
                     <button class="btn btn-sm btn-ghost" id="resetBtn">Reset về common context</button>
                 </div>
@@ -68,13 +68,18 @@
 
         <aside class="assist" id="assist" aria-label="Checkpoint AI hỏi trước" hidden>
             <div class="assist-head"><div><p class="assist-kicker" id="assistKicker">Bạn tự báo cáo</p><h2 class="assist-title" id="assistTitle">Checkpoint · 1 câu</h2></div><button class="icon-btn sm" id="assistCloseBtn" aria-label="Đóng checkpoint"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 4.5l9 9m0-9-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
-            <ol class="assist-progress" aria-label="Tiến trình Option A"><li data-step="question"><span>1</span>Bạn trả lời</li><li data-step="result"><span>2</span>Bạn duyệt</li><li data-step="refresher"><span>3</span>Bài ôn</li></ol>
+            <ol class="assist-progress" aria-label="Tiến trình Option A"><li data-step="question"><span>1</span>Tự báo cáo</li><li data-step="result"><span>2</span>Duyệt gợi ý</li><li data-step="refresher"><span>3</span>Ôn nhanh</li></ol>
+            <div class="assist-context" id="assistContext">
+                <span class="context-deck" id="assistDeckLabel">Funding</span>
+                <span class="context-page" id="assistPageLabel">Trang 1/23</span>
+                <span class="context-policy"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 9V6.5a5 5 0 0 1 10 0V9m-9 0h8a1 1 0 0 1 1 1v6H5v-6a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/></svg>Chỉ dùng câu trả lời</span>
+            </div>
             <div class="assist-body" id="assistBody" aria-live="polite"></div>
             <div class="assist-foot" id="assistFoot"></div>
         </aside>
     </div>
 
-    <button class="annotation-toggle" id="annotationToggle" aria-expanded="false">▤ Annotation</button>
+    <button class="annotation-toggle" id="annotationToggle" aria-expanded="false" hidden>▤ Annotation</button>
     <aside class="annotation" id="annotation" aria-label="Prototype annotation" hidden>
         <div class="annotation-head"><h2>Prototype Annotation</h2><span class="annotation-badge">Option A — Reactive checkpoint</span></div>
         <div class="annotation-grid">

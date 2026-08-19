@@ -129,13 +129,15 @@ try {
   await click('#checkpointBtn');
   check(await evaluate('document.querySelector("#assist").hidden === false'), 'learner explicitly opens checkpoint');
   check(await evaluate('document.querySelectorAll("[data-assist=choose]").length === 3'), 'checkpoint shows exactly three choices');
+  check(await evaluate('document.querySelector("#askStatusText").textContent === "AI đang hỏi"'), 'header reflects the question state');
 
   await click('[data-concept="pre-post-money"]');
   check(await evaluate('document.querySelector("[data-concept=pre-post-money]").classList.contains("is-selected")'), 'selected self-report is visible');
   check(await evaluate('document.querySelector("[data-assist=diagnose]").disabled === false'), 'mapping action unlocks after an answer');
   await click('[data-assist="diagnose"]');
   check(await evaluate('document.querySelector("#assistTitle").textContent.includes("Gợi ý")'), 'result waits for learner review');
-  check(await evaluate('document.querySelector(".result-evidence").textContent.includes("post-money")'), 'result quotes direct learner evidence');
+  check(await evaluate('document.querySelector(".evidence-trail").textContent.includes("post-money")'), 'evidence trail quotes the learner answer');
+  check(await evaluate('document.querySelector("#askStatusText").textContent === "Chờ bạn duyệt"'), 'header reflects the review gate');
   check(await evaluate('document.querySelector("#pageInput").value === "12"'), 'result preserves slide position');
   const desktopScreenshot = await screenshot('option-a-result-desktop.png');
 
@@ -146,6 +148,7 @@ try {
   await click('[data-assist="open"]');
   check(await evaluate('document.querySelector("#assistTitle").textContent.includes("Pre-money")'), 'refresher opens only after approval');
   check(await evaluate('document.querySelector("#assistBody").textContent.includes("Pre-money 4 tỷ")'), 'refresher matches finance content');
+  check(await evaluate('document.querySelector("#askStatusText").textContent === "Đang ôn nhanh"'), 'header reflects the refresher state');
   await click('[data-assist="done"]');
   check(await evaluate('document.querySelector("#assistTitle").textContent.includes("hoàn tất")'), 'completion state is shown');
   check(await evaluate('document.querySelector("#pageInput").value === "12"'), 'completion still preserves page 12');
