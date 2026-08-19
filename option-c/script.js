@@ -208,8 +208,6 @@ const el = {
     assistFoot: document.getElementById('assistFoot'),
     assistCloseBtn: document.getElementById('assistCloseBtn'),
     stuckBtn: document.getElementById('stuckBtn'),
-    gotoChainBtn: document.getElementById('gotoChainBtn'),
-    resetBtn: document.getElementById('resetBtn'),
     annotationToggle: document.getElementById('annotationToggle'),
     annotation: document.getElementById('annotation'),
     stateLog: document.getElementById('stateLog'),
@@ -454,11 +452,11 @@ function resetContext() {
 
 /* ==================== RENDER: panel assist ==================== */
 const STEP_META = {
-    bisect: { kicker: 'Bạn khoanh chỗ đứt', title: 'Mạch suy luận của trang này' },
-    diagnosis: { kicker: 'Mình đoán — bạn chốt', title: 'Có phải chỗ này không?' },
-    refresher: { kicker: 'Bài ôn ngắn', title: 'Khái niệm nền' },
-    verify: { kicker: 'Bạn tự kiểm tra', title: 'Đọc lại đúng bước vừa đứt' },
-    fallback: { kicker: 'Giới hạn của mình', title: 'Bạn chọn giúp mình' },
+    bisect: { kicker: 'Tìm chỗ chưa hiểu', title: 'Từng bước của trang này' },
+    diagnosis: { kicker: 'Gợi ý', title: 'Có phải chỗ này không?' },
+    refresher: { kicker: 'Ôn lại', title: 'Khái niệm nền' },
+    verify: { kicker: 'Kiểm tra', title: 'Đọc lại bước vừa chọn' },
+    fallback: { kicker: 'Bạn chọn', title: 'Vướng phần nào?' },
 };
 
 function stepRow(step, mark, extraClass, canBreak, tag, inner) {
@@ -469,7 +467,7 @@ function stepRow(step, mark, extraClass, canBreak, tag, inner) {
                 <div class="step-main">
                     <p class="step-text">${escapeHtml(step.text)}</p>
                     ${tag || ''}
-                    ${canBreak ? `<button class="step-break" data-assist="break" data-step="${step.id}">Mình đứt từ đây</button>` : ''}
+                    ${canBreak ? `<button class="step-break" data-assist="break" data-step="${step.id}">Chỗ này</button>` : ''}
                 </div>
             </div>
             ${inner || ''}
@@ -485,26 +483,25 @@ function viewBisect() {
 
     const rows = chain.steps.map((step, i) => {
         if (splitIdx < 0) return stepRow(step, String(i + 1), '', true, '', '');
-        if (i < splitIdx) return stepRow(step, '✓', ' is-ok', false, '<span class="step-tag">✓ Bạn theo được</span>', '');
+        if (i < splitIdx) return stepRow(step, '✓', ' is-ok', false, '<span class="step-tag">✓ OK</span>', '');
         if (i > splitIdx) return stepRow(step, String(i + 1), ' is-after', false, '', '');
 
         const kids = (step.children || [])
             .map((c, j) => stepRow(c, `${i + 1}${'ab'[j] || ''}`, '', true, '', ''))
             .join('');
         const inner = `
-            <p class="split-note">Mình chẻ bước này làm 2. Đứt ở nửa nào?</p>
+            <p class="split-note">Chia nhỏ hơn — nửa nào chưa rõ?</p>
             <ol class="chain chain-sub">${kids}</ol>`;
-        return stepRow(step, String(i + 1), ' is-split', false, '<span class="step-tag">Đang chẻ nhỏ</span>', inner);
+        return stepRow(step, String(i + 1), ' is-split', false, '<span class="step-tag">Đang chia</span>', inner);
     }).join('');
 
     return {
         body: `
-            <p class="assist-note">Đọc từng bước bên dưới. Bước nào bạn chưa hiểu rõ thì bấm nút bên cạnh nó.</p>
             <p class="assist-lead">${escapeHtml(chain.lead)}</p>
             <ol class="chain">${rows}</ol>
             <div class="concept-list">
-                <button class="concept-item" data-assist="all-ok">Mình theo được hết ${chain.steps.length} bước
-                    <small>Chỗ mình mắc không nằm trong mạch này</small></button>
+                <button class="concept-item" data-assist="all-ok">Theo được hết
+                    <small>Chỗ mắc không nằm trong đây</small></button>
             </div>`,
         foot: '<button class="btn btn-ghost" data-assist="close">Đóng</button>',
     };
@@ -516,28 +513,16 @@ function viewDiagnosis() {
     const concept = CONCEPTS[state.assist.conceptId];
     if (!chain || !step || !concept) return viewFallback();
 
-    const rootIdx = rootIndexOf(step.id);
-    const evidence = rootIdx > 0
-        ? `Bạn theo được tới <b>bước ${rootIdx}</b>, đứt ở «<b>${escapeHtml(step.text)}</b>».`
-        : `Bạn đứt ngay từ <b>bước 1</b>: «<b>${escapeHtml(step.text)}</b>».`;
-    const trail = [...state.assist.trail, step.id]
-        .map((id) => findStep(chain.steps, id))
-        .filter(Boolean)
-        .map((s) => escapeHtml(s.text))
-        .join(' → ');
-
     return {
         body: `
-            <p class="diag-evidence">${evidence}
-                <span class="diag-trail">Đường bạn vừa khoanh: ${trail}</span></p>
             <div class="diag-gap">
-                <p class="diag-gap-label">Khái niệm nền</p>
+                <p class="diag-gap-label">Có thể bạn thiếu</p>
                 <p class="diag-gap-name">${escapeHtml(concept.name)}</p>
             </div>
-            <p class="diag-ask">Mình đoán bước đó đứt vì khái niệm này chưa chắc — bạn xác nhận thì mình mới mở bài ôn.</p>`,
+            <p class="diag-ask">Đúng không?</p>`,
         foot: `
-            <button class="btn btn-primary" data-assist="confirm">Đúng, mở bài ôn (${escapeHtml(concept.duration)})</button>
-            <button class="btn btn-secondary" data-assist="reject">Không phải — mình đứt ở chỗ khác</button>
+            <button class="btn btn-primary" data-assist="confirm">Đúng, ôn lại (${escapeHtml(concept.duration)})</button>
+            <button class="btn btn-secondary" data-assist="reject">Không phải</button>
             <button class="btn btn-ghost" data-assist="close">Đóng</button>`,
     };
 }
@@ -548,13 +533,13 @@ function viewRefresher() {
 
     return {
         body: `
-            <span class="assist-meta">${escapeHtml(concept.duration)} · khái niệm nền</span>
+            <span class="assist-meta">${escapeHtml(concept.duration)}</span>
             <h3>Cần nhớ</h3>
             <ul>${concept.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
             <h3>Ví dụ</h3>
             <p class="assist-example">${escapeHtml(concept.example)}</p>`,
         foot: `
-            <button class="btn btn-primary" data-assist="to-verify">Xong — quay lại bước vừa đứt</button>
+            <button class="btn btn-primary" data-assist="to-verify">Xong</button>
             <button class="btn btn-ghost" data-assist="close">Đóng</button>`,
     };
 }
@@ -563,33 +548,25 @@ function viewVerify() {
     const step = breakStep();
     return {
         body: `
-            <p class="assist-note">Mình <b>không tự đánh giá</b> bạn hiểu hay chưa — bạn tự chốt.</p>
-            <p class="verify-quote">${escapeHtml(step ? step.text : 'Bước bạn vừa đánh dấu')}</p>
-            <p class="diag-ask">Giờ theo được chưa?</p>`,
+            <p class="verify-quote">${escapeHtml(step ? step.text : 'Bước bạn vừa chọn')}</p>
+            <p class="diag-ask">Giờ hiểu chưa?</p>`,
         foot: `
-            <button class="btn btn-primary" data-assist="done">Theo được rồi — quay lại slide</button>
-            <button class="btn btn-secondary" data-assist="other-concept">Vẫn chưa — chọn khái niệm nền khác</button>`,
+            <button class="btn btn-primary" data-assist="done">Hiểu rồi</button>
+            <button class="btn btn-secondary" data-assist="other-concept">Vẫn chưa</button>`,
     };
 }
 
 function viewFallback() {
     const ids = DECK_CONCEPTS[currentItem().id] || Object.keys(CONCEPTS);
-    const hasChain = Boolean(chainHere());
-    const reason = hasChain
-        ? 'Vậy chỗ bạn mắc không nằm trong mạch mình dựng — mình <b>chưa biết</b> bạn thiếu khái niệm nào.'
-        : `Mạch của trang ${state.page} mình <b>chưa dựng được</b>, nên không có gì để chẻ nhỏ.`;
     const items = ids.map((id) => `
         <button class="concept-item" data-assist="concept" data-concept="${id}">${escapeHtml(CONCEPTS[id].name)}
-            <small>Bài ôn ${escapeHtml(CONCEPTS[id].duration)}</small></button>`).join('');
+            <small>${escapeHtml(CONCEPTS[id].duration)}</small></button>`).join('');
 
     return {
         body: `
-            <p class="assist-note">${reason} Bạn chọn giúp một khái niệm nền của slide này để mình mở bài ôn — không chọn cũng không sao.</p>
+            <p class="assist-note">Bạn đang vướng phần nào?</p>
             <div class="concept-list">${items}</div>`,
-        foot: hasChain
-            ? `<button class="btn btn-secondary" data-assist="reject">Xem lại mạch của trang</button>
-               <button class="btn btn-ghost" data-assist="close">Đóng</button>`
-            : '<button class="btn btn-ghost" data-assist="close">Đóng</button>',
+        foot: '<button class="btn btn-ghost" data-assist="close">Đóng</button>',
     };
 }
 
@@ -700,13 +677,6 @@ el.assistFoot.addEventListener('click', onAssistClick);
 el.stuckBtn.addEventListener('click', openAssist);
 el.stageAiBtn.addEventListener('click', openAssist);
 el.assistCloseBtn.addEventListener('click', () => closeAssist(false));
-
-/* Nút demo cho facilitator */
-el.gotoChainBtn.addEventListener('click', () => {
-    selectItem(0, 0);
-    goToPage(DEMO_CHAIN_PAGE);
-});
-el.resetBtn.addEventListener('click', resetContext);
 
 el.annotationToggle.addEventListener('click', () => {
     const open = el.annotation.hidden;

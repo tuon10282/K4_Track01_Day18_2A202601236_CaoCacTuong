@@ -105,11 +105,11 @@ const SUSPECT_MAP = {
 };
 
 const SIGNAL = {
-    dwellMs: 15000,      // ở cùng một trang bao lâu thì coi là đang vướng
+    dwellMs: 8000,       // ở cùng một trang bao lâu thì coi là đang vướng
     revisitHits: 2,      // quay lại trang đó bao nhiêu lần thì coi là đọc lại
     tickMs: 1000,
     snoozeMs: 10 * 60 * 1000,
-    minConfidence: 60,   // dưới ngưỡng này thì KHÔNG hiện card
+    minConfidence: 50,   // dưới ngưỡng này thì KHÔNG hiện card
 };
 
 /* ==================== STATE ==================== */
@@ -157,7 +157,6 @@ const el = {
     observerText: document.getElementById('observerText'),
     observerMenu: document.getElementById('observerMenu'),
     hint: document.getElementById('hint'),
-    forceHintBtn: document.getElementById('forceHintBtn'),
     resetBtn: document.getElementById('resetBtn'),
     refresher: document.getElementById('refresher'),
     refresherTitle: document.getElementById('refresherTitle'),
@@ -336,7 +335,11 @@ function suspectMapHere() {
 }
 
 function suspectConcept() {
-    return suspectMapHere()[state.page] || null;
+    const mapped = suspectMapHere()[state.page];
+    if (mapped) return mapped;
+    // Fallback: pick first concept from current slide
+    const deckConcepts = Object.values(suspectMapHere());
+    return deckConcepts.length ? deckConcepts[0] : null;
 }
 
 function tick() {
@@ -379,41 +382,24 @@ function renderHint() {
     }
 
     const concept = CONCEPTS[hint.conceptId];
-    const seconds = Math.round(hint.dwellMs / 1000);
-    const tier = hint.confidence >= 80 ? 'high' : 'medium';
-    const tierText = hint.confidence >= 80 ? 'Khá chắc' : 'Trung bình';
-    const lead = hint.confidence >= 80 ? 'Khá chắc bạn đang vướng' : 'Có thể bạn đang vướng';
-
-    const evidence = `
-        <div class="hint-evidence">
-            <b>Vì sao có gợi ý này:</b> bạn ở trang ${state.page} khoảng <b>${seconds}s</b>${
-                hint.revisits > 1 ? ` và đã quay lại trang này <b>${hint.revisits} lần</b>` : ''
-            }.
-            <span class="confidence ${tier}">Độ tin cậy ${hint.confidence}% · ${tierText}</span>
-        </div>`;
 
     const head = `
         <div class="hint-head">
             <span aria-hidden="true">💡</span>
-            <strong>Gợi ý hỗ trợ</strong>
-            <button class="icon-btn sm" data-hint="dismiss" aria-label="Bỏ qua gợi ý">
+            <strong>Có lẽ bạn đang vướng phần này</strong>
+            <button class="icon-btn sm" data-hint="dismiss" aria-label="Bỏ qua">
                 <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 4.5l9 9m0-9-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             </button>
         </div>`;
 
     el.hint.innerHTML = hint.mode === 'alternatives'
-        ? head + evidence + renderHintAlternatives(hint)
-        : head + evidence + `
-            <p class="hint-body">${lead}: <strong>${escapeHtml(concept.name)}</strong></p>
+        ? head + renderHintAlternatives(hint)
+        : head + `
+            <p class="hint-body"><strong>${escapeHtml(concept.name)}</strong></p>
             <div class="hint-actions">
-                <button class="btn btn-sm btn-primary" data-hint="open">Mở bài ôn (${escapeHtml(concept.duration)})</button>
-                <button class="btn btn-sm btn-secondary" data-hint="reject">Không đúng — giải thích khác</button>
-                <button class="btn btn-sm btn-ghost" data-hint="dismiss">Bỏ qua</button>
-            </div>
-            <p class="hint-foot">
-                <button class="hint-link" data-privacy="snooze">Tạm ngừng gợi ý 10 phút</button> ·
-                <button class="hint-link" data-privacy="off">Tắt theo dõi</button>
-            </p>`;
+                <button class="btn btn-sm btn-primary" data-hint="open">Ôn lại (${escapeHtml(concept.duration)})</button>
+                <button class="btn btn-sm btn-ghost" data-hint="reject">Không đúng</button>
+            </div>`;
 
     el.hint.hidden = false;
 }
@@ -430,12 +416,8 @@ function renderHintAlternatives(hint) {
         .join('');
 
     return `
-        <p class="hint-body">Đã ghi nhận — gợi ý vừa rồi chưa đúng. Bạn đang vướng khái niệm nào?</p>
-        <div class="hint-alt-list">${others}</div>
-        <p class="hint-foot">Lần sau AI sẽ hạn chế gợi ý kiểu này ở trang ${state.page}.</p>
-        <div class="hint-actions">
-            <button class="btn btn-sm btn-ghost" data-hint="dismiss">Không cần gợi ý nữa</button>
-        </div>`;
+        <p class="hint-body">Vậy bạn đang vướng phần nào?</p>
+        <div class="hint-alt-list">${others}</div>`;
 }
 
 /* ==================== RENDER: chip observer + log ==================== */
@@ -444,14 +426,14 @@ function renderObserver() {
     el.body.classList.toggle('tracking-snoozed', state.tracking && isSnoozed());
 
     if (!state.tracking) {
-        el.observerText.textContent = 'Đã tắt theo dõi';
+        el.observerText.textContent = 'Đã tắt';
     } else if (isSnoozed()) {
         const left = Math.max(0, state.snoozeUntil - Date.now());
         const mm = String(Math.floor(left / 60000)).padStart(2, '0');
         const ss = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
         el.observerText.textContent = `Tạm ngừng ${mm}:${ss}`;
     } else {
-        el.observerText.textContent = 'AI đang quan sát';
+        el.observerText.textContent = 'Hỗ trợ';
     }
 }
 
@@ -634,15 +616,6 @@ el.annotationToggle.addEventListener('click', () => {
 });
 
 /* Demo controls cho facilitator */
-el.forceHintBtn.addEventListener('click', () => {
-    const conceptId = suspectConcept() || Object.keys(CONCEPTS)[0];
-    state.dwellMs = Math.max(state.dwellMs, SIGNAL.dwellMs);
-    state.dismissed.delete(pageKey());
-    const revisits = revisitsHere();
-    showHint(conceptId, confidenceOf(state.dwellMs, revisits), revisits);
-    renderSignalLog();
-});
-
 el.resetBtn.addEventListener('click', resetContext);
 
 /* ==================== INIT ==================== */

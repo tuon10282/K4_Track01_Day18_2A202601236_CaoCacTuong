@@ -28,13 +28,11 @@
             <div class="observer" id="observer">
                 <button class="observer-chip" id="observerChip" aria-expanded="false" aria-haspopup="true">
                     <span class="observer-dot" aria-hidden="true"></span>
-                    <span class="observer-text" id="observerText">AI đang quan sát</span>
+                    <span class="observer-text" id="observerText">Hỗ trợ</span>
                 </button>
                 <div class="observer-menu" id="observerMenu" hidden>
-                    <p class="observer-menu-note">AI chỉ đọc hành vi đọc bài trong trang này (thời gian ở lại, quay lại trang). Không ghi âm, không thu dữ liệu ngoài bài học.</p>
-                    <button class="menu-item" data-privacy="snooze">Tạm ngừng gợi ý 10 phút</button>
-                    <button class="menu-item" data-privacy="off">Tắt theo dõi phiên này</button>
-                    <button class="menu-item" data-privacy="on">Bật lại theo dõi</button>
+                    <button class="menu-item" data-privacy="off">Tắt hỗ trợ</button>
+                    <button class="menu-item" data-privacy="on">Bật lại</button>
                 </div>
             </div>
 
@@ -59,14 +57,12 @@
 
     <!-- ==================== BANNER FIRST-RUN ==================== -->
     <div class="notice" id="notice">
-        <span class="notice-icon" aria-hidden="true">👀</span>
+        <span class="notice-icon" aria-hidden="true">💡</span>
         <p class="notice-text">
-            AI quan sát <strong>cách bạn đọc</strong> (thời gian ở một trang, số lần quay lại) để gợi ý bài ôn
-            — chỉ là gợi ý, có thể tắt bất cứ lúc nào. Không ghi âm, không theo dõi ngoài hành vi đọc bài.
+            AI có thể giúp bạn ôn lại phần chưa hiểu nếu cần.
         </p>
         <div class="notice-actions">
-            <button class="btn btn-sm btn-primary" id="noticeOkBtn">Đã hiểu</button>
-            <button class="btn btn-sm btn-ghost" data-privacy="off">Tắt theo dõi</button>
+            <button class="btn btn-sm btn-primary" id="noticeOkBtn">OK</button>
         </div>
     </div>
 
@@ -94,8 +90,7 @@
                             <path d="M12.2 2.8a1.7 1.7 0 0 1 2.4 2.4L6.9 12.9l-3 .8.8-3 7.5-7.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <button class="btn btn-sm btn-ghost" id="forceHintBtn">Bắn gợi ý ngay</button>
-                    <button class="btn btn-sm btn-ghost" id="resetBtn">Reset về common context</button>
+                    <button class="btn btn-sm btn-ghost" id="resetBtn">Reset</button>
                 </div>
 
                 <div class="pager">
