@@ -4,9 +4,9 @@ Micro-prototype cho **Case A — AI Tutor: Diagnostic Refresher**.
 
 | Thông tin | Giá trị |
 |---|---|
-| Sinh viên | Cao Các Tường — 2A202601236 |
 | Nhóm | Hihi |
-| Thành viên | Cao Các Tường · Đinh Lê Quỳnh Phương |
+| Sinh viên | Cao Các Tường — 2A202601236 |
+| Sinh viên | Đinh Lê Quỳnh Phương - 2A202601865 |
 
 ## Chạy prototype
 

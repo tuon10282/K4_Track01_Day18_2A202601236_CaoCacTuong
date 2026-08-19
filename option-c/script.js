@@ -499,8 +499,7 @@ function viewBisect() {
 
     return {
         body: `
-            <p class="assist-note">Mình dựng lại mạch suy luận của trang này thành từng bước.
-                Mình <b>không biết</b> bạn đứt ở đâu — bạn khoanh giúp, mình chẻ nhỏ đúng đoạn đó rồi hỏi lại.</p>
+            <p class="assist-note">Đọc từng bước bên dưới. Bước nào bạn chưa hiểu rõ thì bấm nút bên cạnh nó.</p>
             <p class="assist-lead">${escapeHtml(chain.lead)}</p>
             <ol class="chain">${rows}</ol>
             <div class="concept-list">
