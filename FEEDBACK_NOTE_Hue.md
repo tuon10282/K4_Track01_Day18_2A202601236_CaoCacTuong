@@ -1,6 +1,6 @@
-# Prototype Feedback Note — Đinh Lê Phương Huế
+# Prototype Feedback Note — Lăng Thị Phương Huế
 
-**Tester/context:** Đinh Lê Phương Huế — 2A202601915 · Tự học slide online · Thỉnh thoảng đọc lại slide nhưng chưa遇到 difficulty lớn
+**Tester/context:** Lăng Thị Phương Huế — 2A202601915 · Tự học slide online · Thỉnh thoảng đọc lại slide nhưng chưa gặp difficulty lớn
 
 ---
 

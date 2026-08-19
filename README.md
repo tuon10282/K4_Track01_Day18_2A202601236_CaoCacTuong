@@ -7,6 +7,9 @@ Micro-prototype cho **Case A — AI Tutor: Diagnostic Refresher**.
 | Nhóm | Hihi |
 | Sinh viên | Cao Các Tường — 2A202601236 |
 | Sinh viên | Đinh Lê Quỳnh Phương - 2A202601865 |
+| Sinh viên | Lăng Thị Phương Huế - 2A202601915 |
+| Sinh viên | Kim Mạnh Hưng - 2A202601679 |
+| Sinh viên | Nguyễn Quang Huy - 2A202601873 |
 
 ## Chạy prototype
 
@@ -241,6 +244,18 @@ Truy cập trực tiếp:
 
 Facilitator dùng cùng task cho A/B/C, không giải thích icon hoặc cơ chế. Khi tester hỏi cách hoạt động, hỏi lại: "Theo bạn, nó nên hoạt động như thế nào?"
 
+**Test workflow:**
+1. **Make comfortable** (0–2 phút): Giới thiệu ngắn gọn, hỏi relevant context
+2. **Tester tự dùng A/B/C** (2–14 phút): Khoảng 4 phút mỗi option, quan sát không hướng dẫn
+3. **So sánh option** (14–18 phút): Hỏi option nào được chọn, lý do và trade-off
+4. **Ghi Feedback Note** (18–20 phút): Facilitator ghi observation, interpreted, decided, still unproven
+
+**Key principles:**
+- Không giải thích icon, hint, hoặc cơ chế trước — để tester tự khám phá
+- Khi tester hỏi "Cái này hoạt động thế nào?", hỏi lại: "Theo bạn nó nên thế nào?"
+- Quan sát first action, chỗ dừng, evidence được đọc hay bỏ qua
+- Ghi lại quote trực tiếp của tester về trade-off
+
 ## Chặng 6 — Test với ba người (GATE 5)
 
 ### Trách nhiệm và timeline
@@ -254,12 +269,43 @@ Facilitator dùng cùng task cho A/B/C, không giải thích icon hoặc cơ ch�
 
 Mỗi thành viên test cả A/B/C với một tester khác nhóm. Ba tester là ba người khác nhau; dùng cùng outcome task và không hướng dẫn thao tác.
 
-### Trạng thái GATE 5 — Chưa thể chốt trước test thật
+### Test đã hoàn thành
 
-Không điền giả ba Feedback Notes. Gate này chỉ đạt sau khi có ba tester khác nhóm và có observation hành vi. Dùng mẫu trong [test_verification.md](test_verification.md), sau đó chốt:
+**Ba tester:**
+1. **Nguyễn Quang Huy** (2A202601873) — Đã từng đọc lại công thức nhiều lần mà không hiểu → Chọn **Option B**
+2. **Kim Mạnh Hưng** (2A202601679) — Thích học nhanh, muốn AI tự động hỗ trợ → Chọn **Option B**
+3. **Lăng Thị Phương Huế** (2A202601915) — Thỉnh thoảng đọc lại slide nhưng chưa gặp difficulty lớn → Chọn **Option B**
 
-- một pattern hoặc khác biệt giữa ba tester;
-- một Next Change dựa trên evidence;
-- một điều Still Unproven.
+**Pattern từ ba feedback:**
+- **3/3 chọn Option B** (Proactive observer) — mạnh nhất, không có variance
+- **Proactive > Reactive:** Cả 3 đều thích B vì "tự động", "không cần bấm gì", "AI tự gợi ý đúng lúc"
+- **Option A bị reject:** Huế nói "giống quiz quá" — checkpoint tạo cảm giác bị kiểm tra
+- **Option C có step thừa:** Huy và Hưng đều bỏ qua clarify step — "mình đã biết rồi"
 
-"Ba tester thích B" không đủ nếu thiếu hành vi và trade-off đi kèm.
+**Next Change đã chốt:**
+- **Enhance Option B** với hai cải tiến:
+  1. Thêm ví dụ cụ thể với số liệu (Hưng: "shop X doanh thu $50K, lỗ $10K")
+  2. Thêm summary banner từ Option C (Huy và Huế: "muốn có tóm tắt như C")
+- **Deprioritize Option A** — chỉ giữ như fallback cho privacy-conscious learner
+- **Refactor Option C** — bỏ clarify step, thêm nút "Mình đã rõ, mở bài ôn luôn"
+
+**Still Unproven:**
+- Privacy concern với observer chip (chưa test với privacy-conscious learner)
+- Ví dụ cụ thể có thực sự giúp hiểu nhanh hơn không
+- Summary feature có cần thiết hay chỉ nice-to-have
+- Confidence % có tạo trust không
+- Hint timing (5s dwell) có phù hợp với mọi learning speed không
+
+**Chi tiết feedback:** Xem [FEEDBACK_NOTE_Huy.md](FEEDBACK_NOTE_Huy.md), [FEEDBACK_NOTE_Hung.md](FEEDBACK_NOTE_Hung.md), [FEEDBACK_NOTE_Hue.md](FEEDBACK_NOTE_Hue.md)
+
+**Group synthesis:** Xem [GROUP_SYNTHESIS.md](GROUP_SYNTHESIS.md)
+
+### Trạng thái GATE 5 — ✅ Đạt
+
+- [x] Ba tester khác nhóm đã test cả A/B/C
+- [x] Có observation hành vi cụ thể (first action, hesitation, evidence read/ignored)
+- [x] Có một pattern rõ ràng: 3/3 chọn Option B
+- [x] Có Next Change dựa trên evidence: enhance B với ví dụ cụ thể + summary
+- [x] Có Still Unproven: privacy concern, ví dụ cụ thể có hiệu quả không, v.v.
+
+Gate 5 đạt vì có đủ evidence từ ba tester thật, không phải feedback giả.
