@@ -1,5 +1,7 @@
 # Implementation Plan: Chặng 3 & Chặng 4 — Human–AI Design & Micro-Prototypes (Day 18 — Case A)
 
+> **Cập nhật iteration hiện tại (18/08/2026):** Kế hoạch bên dưới được giữ lại như lịch sử thiết kế ban đầu. Bản đã build hiện tại bỏ trigger ẩn, timer giả lập và confidence 78%; flow thực tế dùng `Context → Critical interaction → Decision`, confidence 68% cho Option B và facilitator mode tại `?facilitator=1`. Xem `README.md` và `test_verification.md` để đối chiếu bản đang chạy.
+
 > **Case đã chọn**: Case A — AI Tutor: Diagnostic Refresher  
 > **Thành viên**: Cao Các Tường (2A202601236) · Đinh Lê Quỳnh Phương (2A202601865) — Nhóm Hihi  
 
@@ -44,7 +46,15 @@
 | **AI Act / Ask / Don't Act? Vì sao?** | **AI Ask**: Vì câu hỏi checkpoint giúp xác nhận chính xác kiến thức thiếu trước khi hành động, tránh đoán mò. | **AI Don't Act (Suggest & Wait)**: Vì đoán qua hành vi chỉ là xác suất. AI chỉ hiện toast card nhẹ, để User quyết định mở hay đóng. | **AI Ask & Converse**: AI hỏi lại để hướng dẫn learner tự nhận ra lỗ hổng, tôn trọng tối đa quyền kiểm soát của learner. |
 | **User hiểu capability/limit bằng gì?** | Badge "AI Diagnostic Tutor: Chẩn đoán theo từng phần bài đọc". Giới hạn: Chỉ ôn tập các khái niệm nền có trong sơ đồ bài học. | Banner "Dự đoán hỗ trợ tự động". Giới hạn: Nhắc nhở gợi ý dựa trên thói quen đọc, có thể không chính xác 100%. | Prompt hướng dẫn "Hãy mô tả điều bạn chưa rõ". Giới hạn: AI giúp làm rõ khái niệm nền, không giải hộ bài tập. |
 | **Evidence / Uncertainty thể hiện thế nào?** | **Evidence**: "Dựa vào lựa chọn chưa đúng của bạn tại Checkpoint 1".<br>**Uncertainty**: Rõ ràng 100% đúng/sai qua kết quả làm bài. | **Evidence**: "Bạn đã đọc đi đọc lại đoạn công thức 3.2 trong 45s".<br>**Uncertainty**: Badge "Độ tin cậy: 78% (Trung bình)". | **Evidence**: Sơ đồ tư duy (Concept Graph) hiển thị mối liên kết giữa câu hỏi và bài ôn.<br>**Uncertainty**: Nút xin xác nhận "Bài ôn này đã đúng chỗ bạn vướng chưa?". |
-| **User kiểm soát & recovery thế nào?** | Nút "Bỏ qua quiz", nút "Tôi tự học tiếp", nút "Đổi bài ôn khác". Sau khi học xong bài ôn, quay lại slide ban đầu. | Nút "Mở bài ôn 1-touch", "Tôi không vướng chỗ này (Dismiss)", "Tắt gợi ý tự động phiên này". | Nút "Sửa mô tả", "Chọn khái niệm khác trong sơ đồ", "Đóng hội thoại". Reset tiến trình 1 chạm. |
+### 2.3. Tự kiểm GATE 2 — Meaningful options (Instance check)
+
+**Vị trí trên Spectrum Agency:**
+`USER INITIATES & CO-CREATES (Option C)` ← `AI INITIATES & ASKS (Option A)` → `AI OBSERVES & PROACTIVELY SUGGESTS (Option B)`
+
+**3 câu đối chiếu sự khác biệt cơ chế (Instance check):**
+- **A khác B vì**: Option A xác định lỗ hổng kiến thức nền bằng cách để AI chủ động đưa ra câu hỏi checkpoint chẩn đoán để learner trực tiếp kiểm tra và xác nhận độ hiểu ngay trên slide; trong khi Option B để AI lẳng lặng theo dõi hành vi đọc của learner (thời gian dừng lâu, cuộn lặp) để tự suy luận xác suất lỗ hổng và đề xuất bài ôn mà không cần tương tác qua câu hỏi.
+- **B khác C vì**: Option B hoàn toàn do AI tự động phát hiện dấu hiệu ngập ngừng qua hành vi đọc và đưa ra gợi ý bài ôn mà learner không cần mở yêu cầu trước; trong khi Option C đòi hỏi learner phải chủ động khởi xướng khi nhận ra mình đọc không hiểu và mô tả sự bối rối của mình để AI phối hợp đối thoại làm rõ.
+- **A khác C vì**: Option A do AI hoàn toàn dẫn dắt quy trình chẩn đoán bằng cách cài đặt sẵn câu hỏi kiểm tra trên từng phần của slide để khoanh vùng kiến thức thiếu; trong khi Option C do learner chủ động chọn vị trí khó hiểu và đưa ra mô tả ban đầu, sau đó cùng AI đối thoại Socratic để làm rõ lỗ hổng nền.
 
 ---
 
